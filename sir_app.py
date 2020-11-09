@@ -61,7 +61,6 @@ def admin(admin_id):
             }
         else:  # => table update
             table = TABLES[admin_id]
-            print(f'Table admin={admin_id}/public={table["public_id"]} update: {request.form}')
             table['display_all'] = request.form.get('display_all') == 'on'
             table['visible_clips'] = [int(key.split('enable_clip_')[1]) for key, value in request.form.items()
                                       if key.startswith('enable_clip_') and value == 'on']
@@ -84,8 +83,8 @@ def root_json():
 
 def autocleanup():
     while len(TABLES) > MAX_TABLES_COUNT:
-        table = TABLES.popitem(last=True)
-        print('Removed:', table)
+        admin_id, table = TABLES.popitem(last=True)
+        print('autocleanup removed table:', table['name'], 'admin_id=', admin_id, 'public_id=', table['public_id'])
 
 
 if __name__ == '__main__':
