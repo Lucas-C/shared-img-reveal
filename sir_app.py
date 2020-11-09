@@ -5,8 +5,11 @@ import json, os, random, string
 from collections import OrderedDict
 
 from flask import Flask, abort, jsonify, render_template, request
+from jsonschema import validate
 
 
+with open('scene-definition-schema.json') as schema_file:
+    SCENE_DEF_SCHEMA = json.load(schema_file)
 SCENE_DEFS = (
     {'name': 'Adventure Time: Dungeon Crystal', 'img': {
         'url': 'https://chezsoi.org/lucas/shared-img-reveal/AdventureTimeDungeonCrystal.png',
@@ -51,6 +54,7 @@ def admin(admin_id):
                 scene_def = SCENE_DEFS[scene_def_id - 1]
             elif request.form.get('scene_def'):
                 scene_def = json.loads(request.form['scene_def'])
+                validate(instance=scene_def, schema=SCENE_DEF_SCHEMA)
             else:
                 abort(422, 'Invalid input: missing "scene_def_id" or "scene_def"')
             TABLES[admin_id] = {

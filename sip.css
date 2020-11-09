@@ -5,7 +5,7 @@ body {
   font-size: 1.5rem;
   text-align: center;
 }
-footer, textarea { display: block; width: 60rem; height: 25rem;  margin: 2rem auto; }
+footer, textarea, #scene_def_wrapper { display: block; width: 60rem; height: 25rem;  margin: 2rem auto; }
 #table { background: black; }
 svg {
   width: 100%;

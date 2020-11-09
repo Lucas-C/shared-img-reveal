@@ -5,6 +5,7 @@
   <meta content="width=device-width, initial-scale=1" name="viewport"/>
   <title>Shared image reveal app</title>
   <link rel="stylesheet" href="sip.css">
+  <link rel="stylesheet" href="tln-2027ec7.css">
 </head>
 <body>
   <h1>Shared image reveal app</h1>
@@ -18,13 +19,17 @@
     </select>
     <br><br>
     <label for="scene_def">or define your own:</label>
-    <textarea name="scene_def">{{ scene_defs[0] | tojson(indent=2) }}</textarea>
+    <div id="scene_def_wrapper"><!-- This div is required to exist by tln.js -->
+      <textarea id="scene_def" name="scene_def">{{ scene_defs[0] | tojson(indent=2) }}</textarea>
+    </div>
     <input type="submit" value="Create table">
   </form>
   <footer>
     Source code: <a href="https://github.com/Lucas-C/shared-img-reveal">Lucas-C/shared-img-reveal on GitHub</a>
   </footer>
+  <script src="tln-2027ec7.js"></script>
   <script>
+    TLN.append_line_numbers('scene_def');
     const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
     let table = '';
     while (table.length < 6) {
