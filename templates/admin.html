@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8"/>
+  <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>Shared image reveal app: {{ table.table_def.name }}</title>
+  <link rel="stylesheet" href="../sip.css">
+  </style>
+</head>
+<body id="table">
+  <!-- The viewBox ratio must match the image ratio, so that the image can fully fill the <svg>: -->
+  <svg viewBox="0 0 {{ table.table_def.img.width }} {{ table.table_def.img.height }}">
+    <!-- To fill the <svg>, we set the image width equal to the viewBox width: -->
+    <image xlink:href="{{ table.table_def.img.url }}" x="0" y="0" width="{{ table.table_def.img.width }}" />
+    {% for clip in table.table_def.clips %}
+      <{{ clip.type }}{% for k, v in clip.items() %} {{ k }}="{{ v }}"{% endfor %}
+        class="clip {{ 'enabled' if loop.index0 in table.visible_clips else '' }}"
+        style="cursor: pointer" onclick="toggleClip({{ loop.index0 }})"/>
+    {% endfor %}
+    <pattern id="diagonalHatch" patternUnits="userSpaceOnUse" width="10" height="10">
+      <!-- Tweaked recipe from: https://stackoverflow.com/a/14500054/636849 -->
+      <path d="M0,10 l10,-10" style="stroke:white; stroke-width:1" />
+    </pattern>
+  </svg>
+  <form class="admin" method="POST">
+    <div>Table public URL: <a href="../table/{{ table.public_id }}">{{ table.public_id }}</a></div>
+    {% for clip in table.table_def.clips %}
+      <input type="checkbox" name="enable_clip_{{ loop.index0 }}" {{ 'checked' if loop.index0 in table.visible_clips else '' }}></input>
+    {% endfor %}
+    </select>
+    <input type="checkbox" id="display_all" name="display_all" {{ 'checked' if table.display_all else '' }} onchange="this.form.submit()"></input>
+    <label for="display_all">Display all</label>
+  </form>
+  <script>
+    function toggleClip(clip_id) {
+      const form = document.forms[0];
+      const checkbox = form['enable_clip_' + clip_id];
+      checkbox.checked = !checkbox.checked;
+      form.submit();
+    }
+  </script>
+</body>
+</html>

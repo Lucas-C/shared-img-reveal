@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8"/>
+  <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>Shared image reveal app: {{ table.table_def.name }}</title>
+  <link rel="stylesheet" href="../sip.css">
+  </style>
+</head>
+<body id="table">
+  <!-- The viewBox ratio must match the image ratio, so that the image can fully fill the <svg>: -->
+  <svg viewBox="0 0 {{ table.table_def.img.width }} {{ table.table_def.img.height }}">
+    {% if table.display_all %}
+      <!-- To fill the <svg>, we set the image width equal to the viewBox width: -->
+      <image xlink:href="{{ table.table_def.img.url }}" x="0" y="0" width="{{ table.table_def.img.width }}" />
+    {% endif %}
+    {% for clip_id in table.visible_clips %}{% set clip = table.table_def.clips[clip_id] %}
+      <clipPath id="clip-path{{ loop.index0 }}">
+        <{{ clip.type }}{% for k, v in clip.items() %} {{ k }}="{{ v }}"{% endfor %}/>
+      </clipPath>
+      <image xlink:href="{{ table.table_def.img.url }}" x="0" y="0" width="{{ table.table_def.img.width }}"
+             clip-path="url(#clip-path{{ loop.index0 }})"/>
+    {% endfor %}
+  </svg>
+  <script>
+    let currentTable;
+    function watchForever() {
+      fetch(document.location + '/json').then(response => response.text()).then(responseText => {
+        if (!currentTable) {
+          currentTable = responseText;
+          setTimeout(watchForever, 2000);
+        } else if (currentTable !== responseText) {
+          location.reload();
+        } else {
+          setTimeout(watchForever, 2000);
+        }
+      }).catch(error => console.error(error));
+    }
+    watchForever();
+  </script>
+</body>
+</html>

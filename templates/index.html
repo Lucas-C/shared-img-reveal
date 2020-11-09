@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8"/>
+  <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>Shared image reveal app</title>
+  <link rel="stylesheet" href="sip.css">
+</head>
+<body>
+  <h1>Shared image reveal app</h1>
+  <form method="POST">
+    <select name="table_def">
+    {% for table_def in table_defs %}
+      <option value="{{ loop.index0 }}">{{ table_def.name }}</option>
+    {% endfor %}
+    </select>
+    <input type="submit" value="Create table">
+  </form>
+  <script>
+    const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+    let table = '';
+    while (table.length < 6) {
+      table += CHARS[Math.floor(Math.random() * CHARS.length)];
+    }
+    document.forms[0].action = 'admin/' + table;
+  </script>
+</body>
+</html>
