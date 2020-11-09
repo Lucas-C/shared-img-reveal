@@ -1,5 +1,10 @@
 Online demo at: <https://chezsoi.org/lucas/shared-img-reveal/>
 
+Usage: the [GM](https://en.wikipedia.org/wiki/Gamemaster) creates a table, and share the public URL with players.
+The portions of the image seen by the other players can then be controlled the GM by clicking the hatched zones.
+
+<!-- TODO: add mention of Run.Die.Repeat scenario -->
+
 # Images sources
 ## Adventure Time
 From those flickr albums, all illustrations CC BY-NC-ND 2.0 :

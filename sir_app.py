@@ -10,14 +10,14 @@ from flask import Flask, abort, jsonify, render_template, request
 SCENE_DEFS = (
     {'name': 'Adventure Time Dungeon Crystal', 'img': {
         'url': 'https://chezsoi.org/lucas/shared-img-reveal/AdventureTimeDungeonCrystal.png',
-        'width': 2048, 'height': 1157,
+        'width': 2043, 'height': 1150,
         }, 'clips': (
-            {'type': 'ellipse', 'cx': 1200, 'cy': 1050, 'rx': 700, 'ry': 90}, # START
+            {'type': 'ellipse', 'cx': 1200, 'cy': 1050, 'rx': 700, 'ry': 90}, # BOTTOM
             {'type': 'ellipse', 'cx': 1200, 'cy': 700, 'rx': 300, 'ry': 300}, # TOWER
             {'type': 'ellipse', 'cx': 1750, 'cy': 800, 'rx': 280, 'ry': 300}, # RIGHT
             {'type': 'ellipse', 'cx': 1700, 'cy': 290, 'rx': 350, 'ry': 280}, # TOP-RIGHT
-            {'type': 'ellipse', 'cx': 400, 'cy': 830, 'rx':400, 'ry': 300}, # LEFT
-            {'type': 'ellipse', 'cx': 580, 'cy': 290, 'rx': 580, 'ry': 280}, # TOP-LEFT
+            {'type': 'ellipse', 'cx': 400, 'cy': 830, 'rx':400, 'ry': 300},   # LEFT
+            {'type': 'ellipse', 'cx': 580, 'cy': 290, 'rx': 580, 'ry': 280},  # TOP-LEFT
             {'type': 'ellipse', 'cx': 1250, 'cy': 300, 'rx': 200, 'ry': 150}, # DIAMOND
     )},
 )
