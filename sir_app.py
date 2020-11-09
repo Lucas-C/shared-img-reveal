@@ -55,6 +55,8 @@ def admin(admin_id):
             elif request.form.get('scene_def'):
                 scene_def = json.loads(request.form['scene_def'])
                 validate(instance=scene_def, schema=SCENE_DEF_SCHEMA)
+                if not any(scene_def['name'] == sd['name'] for sd in SCENE_DEFS):
+                    print('Creating table from custom scene definition! admin_id=', admin_id, 'name:', scene_def['name'])
             else:
                 abort(422, 'Invalid input: missing "scene_def_id" or "scene_def"')
             TABLES[admin_id] = {
