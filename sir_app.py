@@ -8,7 +8,7 @@ from flask import Flask, abort, jsonify, render_template, request
 
 
 SCENE_DEFS = (
-    {'name': 'Adventure Time Dungeon Crystal', 'img': {
+    {'name': 'Adventure Time: Dungeon Crystal', 'img': {
         'url': 'https://chezsoi.org/lucas/shared-img-reveal/AdventureTimeDungeonCrystal.png',
         'width': 2043, 'height': 1150,
         }, 'clips': (
@@ -19,6 +19,16 @@ SCENE_DEFS = (
             {'type': 'ellipse', 'cx': 400, 'cy': 830, 'rx':400, 'ry': 300},   # LEFT
             {'type': 'ellipse', 'cx': 580, 'cy': 290, 'rx': 580, 'ry': 280},  # TOP-LEFT
             {'type': 'ellipse', 'cx': 1250, 'cy': 300, 'rx': 200, 'ry': 150}, # DIAMOND
+    )},
+    {'name': 'Adventure Time: Dragon Carcass', 'img': {
+        'url': 'https://chezsoi.org/lucas/shared-img-reveal/AdventureTimeDragonCarcass.png',
+        'width': 2032, 'height': 1143,
+        }, 'clips': (
+            {'type': 'ellipse', 'cx': 1500, 'cy': 900, 'rx': 500, 'ry': 250}, # BOTTOM-RIGHT
+            {'type': 'ellipse', 'cx': 700, 'cy': 800, 'rx': 400, 'ry': 350},  # BOTTOM-LEFT
+            {'type': 'ellipse', 'cx': 300, 'cy': 400, 'rx': 400, 'ry': 400},  # TOP-LEFT
+            {'type': 'ellipse', 'cx': 1000, 'cy': 350, 'rx': 400, 'ry': 300}, # TOP-MIDDLE
+            {'type': 'ellipse', 'cx': 1600, 'cy': 350, 'rx': 400, 'ry': 300}, # TOP-RIGHT
     )},
 )
 APP = Flask(__name__, static_folder='.', static_url_path='')
