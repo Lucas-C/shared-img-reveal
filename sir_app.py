@@ -54,7 +54,7 @@ def admin(admin_id):
                 scene_def = SCENE_DEFS[scene_def_id - 1]
             elif request.form.get('scene_def'):
                 scene_def = json.loads(request.form['scene_def'])
-                validate(instance=scene_def, schema=SCENE_DEF_SCHEMA)
+                validate(instance=scene_def, schema=SCENE_DEF_SCHEMA)  # avoids any HTML/SVG injection
                 if not any(scene_def['name'] == sd['name'] for sd in SCENE_DEFS):
                     print('Creating table from custom scene definition! admin_id=', admin_id, 'name:', scene_def['name'])
             else:

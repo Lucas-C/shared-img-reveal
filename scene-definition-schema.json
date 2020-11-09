@@ -1,16 +1,18 @@
 {
     "$schema": "http://json-schema.org/schema#",
     "$id": "https://chezsoi.org/lucas/shared-img-reveal/scene-definition-schema.json",
-    "type" : "object",
-    "properties" : {
-        "name" : {"type" : "string"},
-        "img" : {"type" : "object", "properties": {
-            "url" : {"type" : "string"},
-            "width" : {"type" : "number"},
-            "height" : {"type" : "number"}
+    "type": "object",
+    "properties": {
+        "name": {"type": "string"},
+        "img": {"type": "object", "properties": {
+            "url": {"type": "string"},
+            "width": {"type": "number"},
+            "height": {"type": "number"}
         }, "required": ["url", "width", "height"], "additionalProperties": false},
-        "clips" : {"type" : "array", "minItems" : 1, "items" : {"type" : "object", "properties": {
-            "type" : {"type" : "string"}
-        }, "required": ["type"], "additionalProperties": true}}
+        "clips": {"type": "array", "minItems": 1, "items": {"type": "object", "properties": {
+            "type": {"type": "string"}
+        }, "required": ["type"], "patternProperties": {
+            "[a-z-]+": {"anyOf": [{"type": "string", "pattern": "[a-zA-Z0-9 -]+"}, {"type": "number"}]}
+        }, "additionalProperties": false}}
     }, "required": ["name", "img", "clips"], "additionalProperties": false
 }
