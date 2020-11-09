@@ -1,4 +1,8 @@
-Online demo at: <https://chezsoi.org/lucas/shared-img-reveal/>
+[![Pull Requests Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)](http://makeapullrequest.com)
+[![build status](https://github.com/Lucas-C/shared-img-reveal/workflows/build/badge.svg)](https://github.com/Lucas-C/shared-img-reveal/actions?query=workflow%3Abuild)
+![GPL v3 license](https://img.shields.io/badge/License-GPL%20v3-blue.svg)
+
+Online demo at: <https://chezsoi.org/lucas/jdr/shared-img-reveal/>
 
 **Usage**: the [GM](https://en.wikipedia.org/wiki/Gamemaster) creates a table, and share the public URL with players.
 The portions of the image seen by the other players can then be controlled the GM by clicking the hatched zones.
@@ -37,3 +41,8 @@ From those Adventure Time flickr albums, all illustrations [CC BY-NC-ND 2.0](htt
         rewrite ^/shared-img-reveal/?(.*)$ /$1 break;
         proxy_pass http://127.0.0.1:8086;
     }
+
+## License
+Thi code is released under [GPL v3 license](https://www.gnu.org/licenses/gpl-3.0.en.html),
+[climate-strike BSD](https://github.com/climate-strike/license/blob/master/licenses/BSD)
+and [The Hippocratic License 2.1](https://firstdonoharm.dev).

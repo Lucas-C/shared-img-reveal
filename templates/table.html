@@ -22,7 +22,22 @@
              clip-path="url(#clip-path{{ loop.index0 }})"/>
     {% endfor %}
   </svg>
+  {% if table.timer_end %}<div id="timer"></div>{% endif %}
   <script>
+    function chronoTick() {
+      const timerEnd = {{ table.timer_end or 'null' }};
+      const now = (new Date()).getTime() / 1000;
+      if (timerEnd) {
+        let timerText = '00:00';
+        if (timerEnd > now) {
+          const remainingSecs = timerEnd - now;
+          timerText = `${Math.floor(remainingSecs / 60)}:${(Math.round(remainingSecs % 60) + '').padStart(2, '0')}`;
+        }
+        window.timer.textContent = timerText
+      }
+      setTimeout(chronoTick, 1000);
+    }
+    chronoTick();
     let currentTable;
     function watchForever() {
       fetch(document.location + '/json').then(response => response.text()).then(responseText => {

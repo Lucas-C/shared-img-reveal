@@ -22,16 +22,35 @@
       <path d="M0,10 l10,-10" style="stroke:white; stroke-width:1" />
     </pattern>
   </svg>
+  {% if table.timer_end %}<div id="timer"></div>{% endif %}
   <form class="admin" method="POST">
     <div>Table public URL: <a href="../table/{{ table.public_id }}">{{ table.public_id }}</a></div>
     {% for clip in table.scene_def.clips %}
-      <input type="checkbox" name="enable_clip_{{ loop.index0 }}" {{ 'checked' if loop.index0 in table.visible_clips else '' }}></input>
+      <input type="checkbox" name="enable_clip_{{ loop.index0 }}" {{ 'checked' if loop.index0 in table.visible_clips else '' }}/>
     {% endfor %}
     </select>
-    <input type="checkbox" id="display_all" name="display_all" {{ 'checked' if table.display_all else '' }} onchange="this.form.submit()"></input>
+    <input type="checkbox" id="display_all" name="display_all" class="switch" {{ 'checked' if table.display_all else '' }} onchange="this.form.submit()"/>
     <label for="display_all">Display all</label>
+    <label for="display_all">Countdown (min):</label>
+    <input type="number" name="countdown_minutes" value="20"/>
+    <input type="checkbox" id="reset_timer" name="reset_timer" class="switch" onchange="this.form.submit()"/>
+    <label for="reset_timer">Reset timer</label>
   </form>
   <script>
+    function chronoTick() {
+      const timerEnd = {{ table.timer_end or 'null' }};
+      const now = (new Date()).getTime() / 1000;
+      if (timerEnd) {
+        let timerText = '00:00';
+        if (timerEnd > now) {
+          const remainingSecs = timerEnd - now;
+          timerText = `${Math.floor(remainingSecs / 60)}:${(Math.round(remainingSecs % 60) + '').padStart(2, '0')}`;
+        }
+        window.timer.textContent = timerText
+      }
+      setTimeout(chronoTick, 1000);
+    }
+    chronoTick();
     function toggleClip(clip_id) {
       const form = document.forms[0];
       const checkbox = form['enable_clip_' + clip_id];

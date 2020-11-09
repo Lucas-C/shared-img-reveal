@@ -1,0 +1,3 @@
+[MESSAGES CONTROL]
+disable = missing-docstring, multiple-imports
+max-line-length = 120

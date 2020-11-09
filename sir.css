@@ -5,12 +5,24 @@ body {
   font-size: 1.5rem;
   text-align: center;
 }
-footer, textarea, #scene_def_wrapper { display: block; width: 60rem; height: 25rem;  margin: 2rem auto; }
+footer, textarea, #scene_def_wrapper {
+  display: block;
+  width: 60rem;
+  height: 25rem;
+  margin: 2rem auto;
+}
+input[type='submit'] {
+  font-size: 2rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  cursor: pointer;
+}
 #table { background: black; }
 svg {
   width: 100%;
   max-height: 98vh;
 }
+#timer { color: white; font-size: 3rem; position: absolute; top: 0; left: 50%; }
 .clip {
   stroke: white;
   stroke-width: 1;
@@ -19,7 +31,8 @@ svg {
 .clip.enabled { fill: transparent; }
 form.admin { color: white; }
 input[type='checkbox'] { display: none; }
-#display_all + label {
+input[type='number'] { width: 3rem; }
+.switch + label {
   display: inline-block;
   border: 2px solid white;
   border-radius: 1rem;
@@ -27,7 +40,7 @@ input[type='checkbox'] { display: none; }
   margin: 1rem;
   cursor: pointer;
 }
-#display_all:checked + label {
+.switch:checked + label {
   background: white;
   color: black;
 }
