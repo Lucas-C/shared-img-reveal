@@ -1,14 +1,13 @@
 #!/usr/bin/env python3
 # coding: utf-8
-# TODO: allow to provide a custom table_definition.json file
 
-import os, random, string
+import json, os, random, string
 from collections import OrderedDict
 
 from flask import Flask, abort, jsonify, render_template, request
 
 
-TABLE_DEFS = (
+SCENE_DEFS = (
     {'name': 'Adventure Time Dungeon Crystal', 'img': {
         'url': 'https://chezsoi.org/lucas/shared-img-reveal/AdventureTimeDungeonCrystal.png',
         'width': 2048, 'height': 1157,
@@ -29,18 +28,23 @@ MAX_TABLES_COUNT = 50
 
 @APP.route('/')
 def index():
-    return render_template('index.html', table_defs=TABLE_DEFS)
+    return render_template('index.html', scene_defs=SCENE_DEFS)
 
 @APP.route('/admin/<admin_id>', methods=('GET', 'POST'))
 def admin(admin_id):
-    # TABLES[admin_id] = {'table_def': TABLE_DEFS[0], 'public_id': 'ABCDEF', 'visible_clips': [], 'display_all': False}
+    # TABLES[admin_id] = {'scene_def': SCENE_DEFS[0], 'public_id': 'ABCDEF', 'visible_clips': [], 'display_all': False}
     if request.method == 'POST':
         if admin_id not in TABLES:  # => table creation
-            if not request.form.get('table_def'):
-                abort(422, 'Invalid form input: missing "table_def"')
             autocleanup()
+            scene_def_id = request.form.get('scene_def_id') and int(request.form.get('scene_def_id'))
+            if scene_def_id:
+                scene_def = SCENE_DEFS[scene_def_id - 1]
+            elif request.form.get('scene_def'):
+                scene_def = json.loads(request.form['scene_def'])
+            else:
+                abort(422, 'Invalid input: missing "scene_def_id" or "scene_def"')
             TABLES[admin_id] = {
-                'table_def': TABLE_DEFS[int(request.form['table_def'])],
+                'scene_def': scene_def,
                 'public_id': ''.join(random.choices(string.ascii_uppercase, k=6)),
                 'visible_clips': [],
                 'display_all': False,

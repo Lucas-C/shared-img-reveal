@@ -9,11 +9,16 @@
 <body>
   <h1>Shared image reveal app</h1>
   <form method="POST">
-    <select name="table_def">
-    {% for table_def in table_defs %}
-      <option value="{{ loop.index0 }}">{{ table_def.name }}</option>
+    <label for="scene_def_id">Choose a predefined scene:</label>
+    <select name="scene_def_id">
+      <option value="0">-- NONE --</option>
+    {% for scene_def in scene_defs %}
+      <option value="{{ loop.index }}">{{ scene_def.name }}</option>
     {% endfor %}
     </select>
+    <br><br>
+    <label for="scene_def">or define your own:</label>
+    <textarea name="scene_def">{{ scene_defs[0] | tojson(indent=2) }}</textarea>
     <input type="submit" value="Create table">
   </form>
   <script>

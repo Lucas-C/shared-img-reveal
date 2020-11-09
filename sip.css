@@ -5,6 +5,7 @@ body {
   font-size: 2rem;
   text-align: center;
 }
+textarea { display: block; width: 60rem; height: 25rem;  margin: 2rem auto; }
 #table { background: black; }
 svg {
   width: 100%;
