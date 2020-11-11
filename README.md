@@ -7,7 +7,7 @@ Online demo at: <https://chezsoi.org/lucas/jdr/shared-img-reveal/>
 **Usage**: the [GM](https://en.wikipedia.org/wiki/Gamemaster) creates a table, and share the public URL with players.
 The portions of the image seen by the other players can then be controlled the GM by clicking the hatched zones.
 
-<!-- TODO: add mention of Run.Die.Repeat scenario -->
+This web application was made as a companion for some scenarios for [Run. Die. Repeat.](https://labrysgames.itch.io/run-die-repeat).
 
 # Resources used
 ## JS libs
@@ -15,6 +15,7 @@ To display `textarea` line numbers: [MatheusAvellar/textarea-line-numbers](https
 
 ## Demo images
 From those Adventure Time flickr albums, all illustrations [CC BY-NC-ND 2.0](https://creativecommons.org/licenses/by-nc-nd/2.0/) :
+- [Hallways of Thime by Djekspek](https://www.deviantart.com/djekspek/art/Hallways-of-Thime-208976938) - [CC BY-NC-SA 3.0](https://creativecommons.org/licenses/by-nc-sa/3.0/)
 - [Adventure Time Backgrounds, Season One](https://www.flickr.com/photos/84568447@N00/albums/72157616038185579)
 - [Adventure Time Characters](https://www.flickr.com/photos/84568447@N00/albums/72157615075682469)
 

@@ -12,8 +12,37 @@ from jsonschema import validate
 with open('scene-definition-schema.json') as schema_file:
     SCENE_DEF_SCHEMA = json.load(schema_file)
 SCENE_DEFS = (
+    {'name': 'Hallways of Thime', 'img': {
+        'url': 'https://chezsoi.org/lucas/jdr/shared-img-reveal/hallways_of_thime_by_djekspek_HD_no_comments.jpg',
+        'width': 1158, 'height': 818,
+        }, 'clips': [
+            {'type': 'rect', 'x': 190, 'y': 0, 'width': 780, 'height': 36},  # Title
+            {'type': 'ellipse', 'cx': 220, 'cy': 130, 'rx': 170, 'ry': 80},  # Entrance
+            {'type': 'ellipse', 'cx': 260, 'cy': 270, 'rx': 110, 'ry': 120}, # Pitfall & tomb
+            {'type': 'ellipse', 'cx': 380, 'cy': 210, 'rx': 90, 'ry': 70},   # Pitfall, stairs & arch
+            {'type': 'ellipse', 'cx': 490, 'cy': 185, 'rx': 90, 'ry': 50},   # Transporter room
+            {'type': 'ellipse', 'cx': 480, 'cy': 270, 'rx': 130, 'ry': 50},  # Arch & more hallways
+            {'type': 'ellipse', 'cx': 670, 'cy': 240, 'rx': 110, 'ry': 60},  # 2 Coves
+            {'type': 'ellipse', 'cx': 785, 'cy': 310, 'rx': 130, 'ry': 70},  # Columns
+            {'type': 'ellipse', 'cx': 890, 'cy': 250, 'rx': 110, 'ry': 80},  # Temple
+            {'type': 'ellipse', 'cx': 570, 'cy': 340, 'rx': 90, 'ry': 50},   # Tomb
+            {'type': 'ellipse', 'cx': 470, 'cy': 400, 'rx': 60, 'ry': 60},   # Ladder
+            {'type': 'ellipse', 'cx': 510, 'cy': 440, 'rx': 60, 'ry': 60},   # Crossroads
+            {'type': 'ellipse', 'cx': 440, 'cy': 540, 'rx': 70, 'ry': 70},   # 2nd crossroads
+            {'type': 'ellipse', 'cx': 570, 'cy': 400, 'rx': 60, 'ry': 40},   # Long corridor #1
+            {'type': 'ellipse', 'cx': 690, 'cy': 380, 'rx': 80, 'ry': 30},   # Long corridor #2
+            {'type': 'ellipse', 'cx': 780, 'cy': 420, 'rx': 50, 'ry': 30},   # Long corridor #3
+            {'type': 'ellipse', 'cx': 915, 'cy': 465, 'rx': 110, 'ry': 80},  # Cellblock
+            {'type': 'ellipse', 'cx': 620, 'cy': 480, 'rx': 100, 'ry': 80},  # Abandoned mine
+            {'type': 'ellipse', 'cx': 750, 'cy': 530, 'rx': 60, 'ry': 35},   # Tunnels
+            {'type': 'ellipse', 'cx': 835, 'cy': 560, 'rx': 70, 'ry': 60},   # Lost City stairs & tunnel entrance
+            {'type': 'ellipse', 'cx': 750, 'cy': 650, 'rx': 150, 'ry': 110}, # Lost City
+            {'type': 'ellipse', 'cx': 565, 'cy': 590, 'rx': 80, 'ry': 45},   # Water Basin
+            {'type': 'ellipse', 'cx': 300, 'cy': 460, 'rx': 110, 'ry': 80},  # Machine Room
+            {'type': 'ellipse', 'cx': 300, 'cy': 610, 'rx': 100, 'ry': 70},  # Treasure Cave
+    ]},
     {'name': 'Adventure Time: Dungeon Crystal', 'img': {
-        'url': 'https://chezsoi.org/lucas/shared-img-reveal/AdventureTimeDungeonCrystal.png',
+        'url': 'https://chezsoi.org/lucas/jdr/shared-img-reveal/AdventureTimeDungeonCrystal.png',
         'width': 2043, 'height': 1150,
         }, 'clips': [
             {'type': 'ellipse', 'cx': 1200, 'cy': 1050, 'rx': 700, 'ry': 90}, # BOTTOM
@@ -25,7 +54,7 @@ SCENE_DEFS = (
             {'type': 'ellipse', 'cx': 1250, 'cy': 300, 'rx': 200, 'ry': 150}, # DIAMOND
     ]},
     {'name': 'Adventure Time: Dragon Carcass', 'img': {
-        'url': 'https://chezsoi.org/lucas/shared-img-reveal/AdventureTimeDragonCarcass.png',
+        'url': 'https://chezsoi.org/lucas/jdr/shared-img-reveal/AdventureTimeDragonCarcass.png',
         'width': 2032, 'height': 1143,
         }, 'clips': [
             {'type': 'ellipse', 'cx': 1500, 'cy': 900, 'rx': 500, 'ry': 250}, # BOTTOM-RIGHT
