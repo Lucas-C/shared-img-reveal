@@ -5,7 +5,6 @@
   <meta content="width=device-width, initial-scale=1" name="viewport"/>
   <title>Shared image reveal app</title>
   <link rel="stylesheet" href="sir.css">
-  <link rel="stylesheet" href="tln-2027ec7.css">
 </head>
 <body>
   <h1>Shared image reveal app</h1>
@@ -18,24 +17,28 @@
     {% endfor %}
     </select>
     <br><br>
-    <label for="scene_def">or define your own:</label>
-    <div id="scene_def_wrapper"><!-- This div is required to exist by tln.js -->
-      <textarea id="scene_def" name="scene_def">{{ scene_defs[0] | tojson(indent=2) }}</textarea>
-    </div>
+    <button type="button" onclick="toggleTextareaHeight()">or define your own <em>(advanced usage, click to reveal JSON)</em></button>
+    <textarea id="scene_def" name="scene_def" style="height: 0">{{ scene_defs[0] | tojson(indent=2) }}</textarea>
     <input type="submit" value="Create table">
   </form>
   <footer>
     Source code: <a href="https://github.com/Lucas-C/shared-img-reveal">Lucas-C/shared-img-reveal on GitHub</a>
   </footer>
-  <script src="tln-2027ec7.js"></script>
   <script>
-    TLN.append_line_numbers('scene_def');
     const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
     let table = '';
     while (table.length < 6) {
       table += CHARS[Math.floor(Math.random() * CHARS.length)];
     }
     document.forms[0].action = 'admin/' + table;
+    function toggleTextareaHeight() {
+      const currentHeight = window.scene_def.style.height;
+      if (currentHeight === '0px') {
+        window.scene_def.style.height = '25rem';
+      } else {
+        window.scene_def.style.height = 0;
+      }
+    }
   </script>
 </body>
 </html>

@@ -5,18 +5,20 @@ body {
   font-size: 1.5rem;
   text-align: center;
 }
-footer, textarea, #scene_def_wrapper {
+footer, textarea {
   display: block;
+  margin: 2rem auto;
   width: 60rem;
   height: 25rem;
-  margin: 2rem auto;
+  transition: height 0.2s ease-out;
 }
-input[type='submit'] {
-  font-size: 2rem;
+button, input[type='submit'] {
+  font-size: 1rem;
   padding: 1rem;
   border-radius: 1rem;
   cursor: pointer;
 }
+input[type='submit'] { font-size: 2rem; }
 #table { background: black; }
 svg {
   width: 100%;

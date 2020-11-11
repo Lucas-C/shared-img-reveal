@@ -9,15 +9,13 @@ The portions of the image seen by the other players can then be controlled the G
 
 This web application was made as a companion for some scenarios for [Run. Die. Repeat.](https://labrysgames.itch.io/run-die-repeat).
 
-# Resources used
-## JS libs
-To display `textarea` line numbers: [MatheusAvellar/textarea-line-numbers](https://github.com/MatheusAvellar/textarea-line-numbers) (served by the app).
-
-## Demo images
-From those Adventure Time flickr albums, all illustrations [CC BY-NC-ND 2.0](https://creativecommons.org/licenses/by-nc-nd/2.0/) :
+# Demo images
 - [Hallways of Thime by Djekspek](https://www.deviantart.com/djekspek/art/Hallways-of-Thime-208976938) - [CC BY-NC-SA 3.0](https://creativecommons.org/licenses/by-nc-sa/3.0/)
-- [Adventure Time Backgrounds, Season One](https://www.flickr.com/photos/84568447@N00/albums/72157616038185579)
-- [Adventure Time Characters](https://www.flickr.com/photos/84568447@N00/albums/72157615075682469)
+- Adventure Time illustrations from those 2 flickr albums :
+[Adventure Time Backgrounds, Season One](https://www.flickr.com/photos/84568447@N00/albums/72157616038185579)
+& [Adventure Time Characters](https://www.flickr.com/photos/84568447@N00/albums/72157615075682469),
+[CC BY-NC-ND 2.0](https://creativecommons.org/licenses/by-nc-nd/2.0/).
+
 
 # Installation
 
