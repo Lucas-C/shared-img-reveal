@@ -11,6 +11,7 @@ This web application was made as a companion for some scenarios for [Run. Die. R
 
 # Demo images
 - [Hallways of Thime by Djekspek](https://www.deviantart.com/djekspek/art/Hallways-of-Thime-208976938) - [CC BY-NC-SA 3.0](https://creativecommons.org/licenses/by-nc-sa/3.0/)
+- Rocks from [Isometric 64x64 Outside Tileset by Yar](https://opengameart.org/content/isometric-64x64-outside-tileset) - [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)
 - Adventure Time illustrations from those 2 flickr albums :
 [Adventure Time Backgrounds, Season One](https://www.flickr.com/photos/84568447@N00/albums/72157616038185579)
 & [Adventure Time Characters](https://www.flickr.com/photos/84568447@N00/albums/72157615075682469),
