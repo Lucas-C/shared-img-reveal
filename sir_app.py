@@ -40,7 +40,9 @@ SCENE_DEFS = (
             {'type': 'ellipse', 'cx': 565, 'cy': 590, 'rx': 80, 'ry': 45},   # Water Basin
             {'type': 'ellipse', 'cx': 300, 'cy': 460, 'rx': 110, 'ry': 80},  # Machine Room
             {'type': 'ellipse', 'cx': 300, 'cy': 610, 'rx': 100, 'ry': 70},  # Treasure Cave
-    ]},
+    ], 'images': [
+        {'url': 'https://chezsoi.org/lucas/jdr/shared-img-reveal/rocks.png', 'x': 360, 'y': 210, 'width': 80, 'height': 80},
+    ],'duration_in_min': 45},
     {'name': 'Adventure Time: Dungeon Crystal', 'img': {
         'url': 'https://chezsoi.org/lucas/jdr/shared-img-reveal/AdventureTimeDungeonCrystal.png',
         'width': 2043, 'height': 1150,
@@ -52,7 +54,7 @@ SCENE_DEFS = (
             {'type': 'ellipse', 'cx': 400, 'cy': 830, 'rx':400, 'ry': 300},   # LEFT
             {'type': 'ellipse', 'cx': 580, 'cy': 290, 'rx': 580, 'ry': 280},  # TOP-LEFT
             {'type': 'ellipse', 'cx': 1250, 'cy': 300, 'rx': 200, 'ry': 150}, # DIAMOND
-    ]},
+    ], 'duration_in_min': 20},
     {'name': 'Adventure Time: Dragon Carcass', 'img': {
         'url': 'https://chezsoi.org/lucas/jdr/shared-img-reveal/AdventureTimeDragonCarcass.png',
         'width': 2032, 'height': 1143,
@@ -62,7 +64,7 @@ SCENE_DEFS = (
             {'type': 'ellipse', 'cx': 300, 'cy': 400, 'rx': 400, 'ry': 400},  # TOP-LEFT
             {'type': 'ellipse', 'cx': 1000, 'cy': 350, 'rx': 400, 'ry': 300}, # TOP-MIDDLE
             {'type': 'ellipse', 'cx': 1600, 'cy': 350, 'rx': 400, 'ry': 300}, # TOP-RIGHT
-    ]},
+    ], 'duration_in_min': 20},
 )
 APP = Flask(__name__, static_folder='.', static_url_path='')
 TABLES = OrderedDict()  # in-memory data state
@@ -84,7 +86,7 @@ def admin_as_html(admin_id):
             autocleanup()
             scene_def_id = request.form.get('scene_def_id') and int(request.form.get('scene_def_id'))
             if scene_def_id:
-                scene_def = SCENE_DEFS[scene_def_id - 1]
+                scene_def = SCENE_DEFS[scene_def_id - 1].copy()
             elif request.form.get('scene_def'):
                 scene_def = json.loads(request.form['scene_def'])
                 validate(instance=scene_def, schema=SCENE_DEF_SCHEMA)  # avoids any HTML/SVG injection
@@ -93,10 +95,15 @@ def admin_as_html(admin_id):
                           ' admin_id=', admin_id, 'name:', scene_def['name'])
             else:
                 abort(422, 'Invalid input: missing "scene_def_id" or "scene_def"')
+            if 'clips' not in scene_def:
+                scene_def['clips'] = []
+            if 'images' not in scene_def:
+                scene_def['images'] = []
             TABLES[admin_id] = {
                 'scene_def': scene_def,
                 'public_id': ''.join(random.choices(string.ascii_uppercase, k=6)),
                 'visible_clips': [],
+                'visible_images': [],
                 'display_all': False,
                 'timer_end': None,
             }
@@ -108,6 +115,8 @@ def admin_as_html(admin_id):
                 table['timer_end'] = (datetime.now() + timedelta(minutes=countdown_minutes)).timestamp()
             table['visible_clips'] = [int(key.split('enable_clip_')[1]) for key, value in request.form.items()
                                       if key.startswith('enable_clip_') and value == 'on']
+            table['visible_images'] = [int(key.split('enable_image_')[1]) for key, value in request.form.items()
+                                      if key.startswith('enable_image_') and value == 'on']
             TABLES.move_to_end(admin_id)  # move on top of OrderedDict (must be done manually on updates)
     return render_template('admin.html', table=TABLES[admin_id])
 

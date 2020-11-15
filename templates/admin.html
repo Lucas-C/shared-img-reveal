@@ -17,6 +17,11 @@
         class="clip {{ 'enabled' if loop.index0 in table.visible_clips else '' }}"
         style="cursor: pointer" onclick="toggleClip({{ loop.index0 }})"/>
     {% endfor %}
+    {% for img in table.scene_def.images %}
+      <image href="{{ img.url }}" x="{{ img.x }}" y="{{ img.y }}" width="{{ img.width }}" height="{{ img.height }}"
+        opacity="{{ 1 if loop.index0 in table.visible_images else 0.5 }}"
+        style="cursor: pointer" onclick="toggleImage({{ loop.index0 }})"/>
+    {% endfor %}
     <pattern id="diagonalHatch" patternUnits="userSpaceOnUse" width="10" height="10">
       <!-- Tweaked recipe from: https://stackoverflow.com/a/14500054/636849 -->
       <path d="M0,10 l10,-10" style="stroke:white; stroke-width:1" />
@@ -28,11 +33,14 @@
     {% for clip in table.scene_def.clips %}
       <input type="checkbox" name="enable_clip_{{ loop.index0 }}" {{ 'checked' if loop.index0 in table.visible_clips else '' }}/>
     {% endfor %}
+    {% for clip in table.scene_def.clips %}
+      <input type="checkbox" name="enable_image_{{ loop.index0 }}" {{ 'checked' if loop.index0 in table.visible_images else '' }}/>
+    {% endfor %}
     </select>
     <input type="checkbox" id="display_all" name="display_all" class="switch" {{ 'checked' if table.display_all else '' }} onchange="this.form.submit()"/>
     <label for="display_all">Display all</label>
     <label for="display_all">Countdown (min):</label>
-    <input type="number" name="countdown_minutes" value="20"/>
+    <input type="number" name="countdown_minutes" value="{{ table.scene_def.duration_in_min or 20 }}"/>
     <input type="checkbox" id="reset_timer" name="reset_timer" class="switch" onchange="this.form.submit()"/>
     <label for="reset_timer">Reset timer</label>
   </form>
@@ -51,6 +59,12 @@
       setTimeout(chronoTick, 1000);
     }
     chronoTick();
+    function toggleImage(clip_id) {
+      const form = document.forms[0];
+      const checkbox = form['enable_image_' + clip_id];
+      checkbox.checked = !checkbox.checked;
+      form.submit();
+    }
     function toggleClip(clip_id) {
       const form = document.forms[0];
       const checkbox = form['enable_clip_' + clip_id];

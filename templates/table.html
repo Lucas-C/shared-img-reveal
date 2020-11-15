@@ -21,6 +21,9 @@
       <image xlink:href="{{ table.scene_def.img.url }}" x="0" y="0" width="{{ table.scene_def.img.width }}"
              clip-path="url(#clip-path{{ loop.index0 }})"/>
     {% endfor %}
+    {% for img_id in table.visible_images %}{% set img = table.scene_def.images[img_id] %}
+      <image xlink:href="{{ img.url }}" x="{{ img.x }}" y="{{ img.y }}" width="{{ img.width }}" height="{{ img.height }}"/>
+    {% endfor %}
   </svg>
   {% if table.timer_end %}<div id="timer"></div>{% endif %}
   <script>
