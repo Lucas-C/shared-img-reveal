@@ -9,13 +9,16 @@ The portions of the image seen by the other players can then be controlled the G
 
 This web application was made as a companion for some scenarios for [Run. Die. Repeat.](https://labrysgames.itch.io/run-die-repeat).
 
+<!-- TODO: add link to my scenarios -->
+
+![](https://lucas-c.github.io/jdr/RunDieRepeat/hallways_of_thime_by_djekspek_small.jpg)
+![](https://lucas-c.github.io/jdr/RunDieRepeat/EnqueteAuVillage-small.jpg)
+
 # Demo images
 - [Hallways of Thime by Djekspek](https://www.deviantart.com/djekspek/art/Hallways-of-Thime-208976938) - [CC BY-NC-SA 3.0](https://creativecommons.org/licenses/by-nc-sa/3.0/)
 - Rocks from [Isometric 64x64 Outside Tileset by Yar](https://opengameart.org/content/isometric-64x64-outside-tileset) - [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)
-- Adventure Time illustrations from those 2 flickr albums :
-[Adventure Time Backgrounds, Season One](https://www.flickr.com/photos/84568447@N00/albums/72157616038185579)
-& [Adventure Time Characters](https://www.flickr.com/photos/84568447@N00/albums/72157615075682469),
-[CC BY-NC-ND 2.0](https://creativecommons.org/licenses/by-nc-nd/2.0/).
+- [Map - Small Town](https://www.deviantart.com/ekizius/art/Map-Small-Town-795100291) & [Map - Village](https://www.deviantart.com/ekizius/art/Map-Village-795100444) by Ekizius - [CC BY-NC-SA 3.0](https://creativecommons.org/licenses/by-nc-sa/3.0/)
+- [Fantasy portraits by TinySecretDoor](https://www.deviantart.com/tinysecretdoor/gallery/52921157/fantasy-portraits) - [CC BY-NC 3.0](https://creativecommons.org/licenses/by-nc/3.0/)
 
 
 # Installation

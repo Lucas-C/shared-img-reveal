@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # coding: utf-8
 
-import json, os, random, string
+import copy, json, os, random, string
 from collections import OrderedDict
 from datetime import datetime, timedelta
 
@@ -43,28 +43,35 @@ SCENE_DEFS = (
     ], 'images': [
         {'url': 'https://chezsoi.org/lucas/jdr/shared-img-reveal/rocks.png', 'x': 360, 'y': 210, 'width': 80, 'height': 80},
     ],'duration_in_min': 45},
-    {'name': 'Adventure Time: Dungeon Crystal', 'img': {
-        'url': 'https://chezsoi.org/lucas/jdr/shared-img-reveal/AdventureTimeDungeonCrystal.png',
-        'width': 2043, 'height': 1150,
+    {'name': 'Enquête au village', 'img': {
+        'url': 'https://chezsoi.org/lucas/jdr/shared-img-reveal/EnqueteAuVillage.jpg',
+        'width': 1575, 'height': 881,
         }, 'clips': [
-            {'type': 'ellipse', 'cx': 1200, 'cy': 1050, 'rx': 700, 'ry': 90}, # BOTTOM
-            {'type': 'ellipse', 'cx': 1200, 'cy': 700, 'rx': 300, 'ry': 300}, # TOWER
-            {'type': 'ellipse', 'cx': 1750, 'cy': 800, 'rx': 280, 'ry': 300}, # RIGHT
-            {'type': 'ellipse', 'cx': 1700, 'cy': 290, 'rx': 350, 'ry': 280}, # TOP-RIGHT
-            {'type': 'ellipse', 'cx': 400, 'cy': 830, 'rx':400, 'ry': 300},   # LEFT
-            {'type': 'ellipse', 'cx': 580, 'cy': 290, 'rx': 580, 'ry': 280},  # TOP-LEFT
-            {'type': 'ellipse', 'cx': 1250, 'cy': 300, 'rx': 200, 'ry': 150}, # DIAMOND
-    ], 'duration_in_min': 20},
-    {'name': 'Adventure Time: Dragon Carcass', 'img': {
-        'url': 'https://chezsoi.org/lucas/jdr/shared-img-reveal/AdventureTimeDragonCarcass.png',
-        'width': 2032, 'height': 1143,
-        }, 'clips': [
-            {'type': 'ellipse', 'cx': 1500, 'cy': 900, 'rx': 500, 'ry': 250}, # BOTTOM-RIGHT
-            {'type': 'ellipse', 'cx': 700, 'cy': 800, 'rx': 400, 'ry': 350},  # BOTTOM-LEFT
-            {'type': 'ellipse', 'cx': 300, 'cy': 400, 'rx': 400, 'ry': 400},  # TOP-LEFT
-            {'type': 'ellipse', 'cx': 1000, 'cy': 350, 'rx': 400, 'ry': 300}, # TOP-MIDDLE
-            {'type': 'ellipse', 'cx': 1600, 'cy': 350, 'rx': 400, 'ry': 300}, # TOP-RIGHT
-    ], 'duration_in_min': 20},
+            # North-West
+            {'type': 'ellipse', 'cx': 170, 'cy': 80, 'rx': 150, 'ry': 120},  # North-West exit
+            {'type': 'ellipse', 'cx': 350, 'cy': 360, 'rx': 240, 'ry': 200},  # Market place
+            {'type': 'ellipse', 'cx': 80, 'cy': 270, 'rx': 90, 'ry': 120},  # Court on the West
+            {'type': 'ellipse', 'cx': 110, 'cy': 470, 'rx': 110, 'ry': 120},  # Enclosure on the West
+            {'type': 'ellipse', 'cx': 550, 'cy': 200, 'rx': 70, 'ry': 80},  # Passage north
+            {'type': 'ellipse', 'cx': 490, 'cy': 70, 'rx': 200, 'ry': 110},  # North area
+            {'type': 'ellipse', 'cx': 700, 'cy': 170, 'rx': 120, 'ry': 120},  # Church
+            {'type': 'ellipse', 'cx': 620, 'cy': 500, 'rx': 150, 'ry': 100},  # Mill
+            {'type': 'ellipse', 'cx': 650, 'cy': 340, 'rx': 120, 'ry': 100},  # Main street
+            # {'type': 'ellipse', 'cx': 720, 'cy': 365, 'rx': 220, 'ry': 90},  # Main street
+            # South-East
+            {'type': 'ellipse', 'cx': 830, 'cy': 410, 'rx': 130, 'ry': 110},  # Main street
+            {'type': 'ellipse', 'cx': 1100, 'cy': 470, 'rx': 220, 'ry': 190},  # Well place
+            {'type': 'ellipse', 'cx': 1430, 'cy': 490, 'rx': 170, 'ry': 170},  # Forge & East exit
+            {'type': 'ellipse', 'cx': 930, 'cy': 680, 'rx': 160, 'ry': 170},  # The fields
+            {'type': 'ellipse', 'cx': 1210, 'cy': 720, 'rx': 220, 'ry': 120},  # The farm, south
+            # Portraits
+            {'type': 'ellipse', 'cx': 930, 'cy': 140, 'rx': 110, 'ry': 140},  # Priest
+            {'type': 'ellipse', 'cx': 1184, 'cy': 140, 'rx': 110, 'ry': 140},  # Scholar
+            {'type': 'ellipse', 'cx': 1442, 'cy': 140, 'rx': 110, 'ry': 140},  # Crook
+            {'type': 'ellipse', 'cx': 120, 'cy': 740, 'rx': 110, 'ry': 140},  # Wizard
+            {'type': 'ellipse', 'cx': 378, 'cy': 740, 'rx': 110, 'ry': 140},  # Mayor
+            {'type': 'ellipse', 'cx': 635, 'cy': 740, 'rx': 110, 'ry': 140},  # Clockmaker
+    ]},
 )
 APP = Flask(__name__, static_folder='.', static_url_path='')
 TABLES = OrderedDict()  # in-memory data state
@@ -80,13 +87,13 @@ def index_as_json():
 
 @APP.route('/admin/<admin_id>', methods=('GET', 'POST'))
 def admin_as_html(admin_id):
-    # TABLES[admin_id] = {'scene_def': SCENE_DEFS[0], 'public_id': 'ABCDEF', 'visible_clips': [], 'display_all': False}
+    # TABLES[admin_id] = {'scene_def': SCENE_DEFS[0], 'public_id': 'ABCDEF', 'visible_clips': [], 'display_all': False}  # uncomment this while working on a scene
     if request.method == 'POST':
         if admin_id not in TABLES:  # => table creation
             autocleanup()
             scene_def_id = request.form.get('scene_def_id') and int(request.form.get('scene_def_id'))
             if scene_def_id:
-                scene_def = SCENE_DEFS[scene_def_id - 1].copy()
+                scene_def = copy.deepcopy(SCENE_DEFS[scene_def_id - 1])
             elif request.form.get('scene_def'):
                 scene_def = json.loads(request.form['scene_def'])
                 validate(instance=scene_def, schema=SCENE_DEF_SCHEMA)  # avoids any HTML/SVG injection
