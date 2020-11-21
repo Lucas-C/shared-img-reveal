@@ -14,13 +14,11 @@
         }, "required": ["type"], "patternProperties": {
             "[a-z-]+": {"anyOf": [{"type": "string", "pattern": "[a-zA-Z0-9 -]+"}, {"type": "number"}]}
         }, "additionalProperties": false}},
-        "images": {"type": "array", "items": {"type": "object", "properties": {
-            "url": {"type": "string"},
-            "x": {"type": "number"},
-            "y": {"type": "number"},
-            "width": {"type": "number"},
-            "height": {"type": "number"}
-        }, "required": ["url", "x", "y", "width", "height"], "additionalProperties": false}},
+        "add": {"type": "array", "items": {"type": "object", "properties": {
+            "type": {"type": "string"}
+        }, "required": ["type"], "patternProperties": {
+            "[a-z-]+": {"anyOf": [{"type": "string", "pattern": "[a-zA-Z0-9 -]+"}, {"type": "number"}]}
+        }, "additionalProperties": false}},
         "duration_in_min": {"type": "number"}
     }, "required": ["name", "img"], "additionalProperties": false
 }

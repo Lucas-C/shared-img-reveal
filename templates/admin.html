@@ -5,7 +5,6 @@
   <meta content="width=device-width, initial-scale=1" name="viewport"/>
   <title>Shared image reveal app: {{ table.scene_def.name }}</title>
   <link rel="stylesheet" href="../sir.css">
-  </style>
 </head>
 <body id="table">
   <!-- The viewBox ratio must match the image ratio, so that the image can fully fill the <svg>: -->
@@ -17,10 +16,11 @@
         class="clip {{ 'enabled' if loop.index0 in table.visible_clips else '' }}"
         style="cursor: pointer" onclick="toggleClip({{ loop.index0 }})"/>
     {% endfor %}
-    {% for img in table.scene_def.images %}
-      <image href="{{ img.url }}" x="{{ img.x }}" y="{{ img.y }}" width="{{ img.width }}" height="{{ img.height }}"
-        opacity="{{ 1 if loop.index0 in table.visible_images else 0.5 }}"
-        style="cursor: pointer" onclick="toggleImage({{ loop.index0 }})"/>
+    {% for elem in table.scene_def.add %}
+      <{{ elem.type }}{% for k, v in elem.items() %} {{ k }}="{{ v }}"{% endfor %}
+        opacity="{{ 1 if loop.index0 in table.added_elems else 0.5 }}"
+        style="cursor: pointer" onclick="toggleElemAdded({{ loop.index0 }})"
+        {% if elem.content %}>{{ elem.content }}</{{ elem.type }}>{% else %}/>{% endif %}
     {% endfor %}
     <pattern id="diagonalHatch" patternUnits="userSpaceOnUse" width="10" height="10">
       <!-- Tweaked recipe from: https://stackoverflow.com/a/14500054/636849 -->
@@ -33,10 +33,9 @@
     {% for clip in table.scene_def.clips %}
       <input type="checkbox" name="enable_clip_{{ loop.index0 }}" {{ 'checked' if loop.index0 in table.visible_clips else '' }}/>
     {% endfor %}
-    {% for clip in table.scene_def.clips %}
-      <input type="checkbox" name="enable_image_{{ loop.index0 }}" {{ 'checked' if loop.index0 in table.visible_images else '' }}/>
+    {% for elem in table.scene_def.add %}
+      <input type="checkbox" name="enable_elem_{{ loop.index0 }}" {{ 'checked' if loop.index0 in table.added_elems else '' }}/>
     {% endfor %}
-    </select>
     <input type="checkbox" id="display_all" name="display_all" class="switch" {{ 'checked' if table.display_all else '' }} onchange="this.form.submit()"/>
     <label for="display_all">Display all</label>
     <label for="display_all">Countdown (min):</label>
@@ -59,9 +58,9 @@
       setTimeout(chronoTick, 1000);
     }
     chronoTick();
-    function toggleImage(clip_id) {
+    function toggleElemAdded(clip_id) {
       const form = document.forms[0];
-      const checkbox = form['enable_image_' + clip_id];
+      const checkbox = form['enable_elem_' + clip_id];
       checkbox.checked = !checkbox.checked;
       form.submit();
     }

@@ -40,10 +40,10 @@ SCENE_DEFS = (
             {'type': 'ellipse', 'cx': 565, 'cy': 590, 'rx': 80, 'ry': 45},   # Water Basin
             {'type': 'ellipse', 'cx': 300, 'cy': 460, 'rx': 110, 'ry': 80},  # Machine Room
             {'type': 'ellipse', 'cx': 300, 'cy': 610, 'rx': 100, 'ry': 70},  # Treasure Cave
-    ], 'images': [
-        {'url': 'https://chezsoi.org/lucas/jdr/shared-img-reveal/rocks.png', 'x': 360, 'y': 210, 'width': 80, 'height': 80},
+    ], 'add': [
+        {'type': 'image', 'xlink:href': 'https://chezsoi.org/lucas/jdr/shared-img-reveal/rocks.png', 'x': 360, 'y': 210, 'width': 80, 'height': 80},
     ],'duration_in_min': 45},
-    {'name': 'Enquête au village', 'img': {
+    {'name': 'Enquête sous pression à ValTordu', 'img': {
         'url': 'https://chezsoi.org/lucas/jdr/shared-img-reveal/EnqueteAuVillage.jpg',
         'width': 1575, 'height': 881,
         }, 'clips': [
@@ -71,6 +71,19 @@ SCENE_DEFS = (
             {'type': 'ellipse', 'cx': 120, 'cy': 740, 'rx': 110, 'ry': 140},  # Wizard
             {'type': 'ellipse', 'cx': 378, 'cy': 740, 'rx': 110, 'ry': 140},  # Mayor
             {'type': 'ellipse', 'cx': 635, 'cy': 740, 'rx': 110, 'ry': 140},  # Clockmaker
+    ], 'add': [
+        {'type': 'text', 'content': 'Faraday', 'x': 32, 'y': 825,
+                         'font-family': 'Arial Black', 'font-size': 40, 'fill': 'white'},
+        {'type': 'text', 'content': 'Douglas', 'x': 290, 'y': 825,
+                         'font-family': 'Arial Black', 'font-size': 40, 'fill': 'white'},
+        {'type': 'text', 'content': 'Erneste', 'x': 550, 'y': 825,
+                         'font-family': 'Arial Black', 'font-size': 40, 'fill': 'white'},
+        {'type': 'text', 'content': 'Sirius', 'x': 870, 'y': 220,
+                         'font-family': 'Arial Black', 'font-size': 40, 'fill': 'white'},
+        {'type': 'text', 'content': 'Marko', 'x': 1110, 'y': 220,
+                         'font-family': 'Arial Black', 'font-size': 40, 'fill': 'white'},
+        {'type': 'text', 'content': 'Jacques', 'x': 1350, 'y': 220,
+                         'font-family': 'Arial Black', 'font-size': 40, 'fill': 'white'},
     ]},
 )
 APP = Flask(__name__, static_folder='.', static_url_path='')
@@ -105,13 +118,13 @@ def admin_as_html(admin_id):
                 abort(422, 'Invalid input: missing "scene_def_id" or "scene_def"')
             if 'clips' not in scene_def:
                 scene_def['clips'] = []
-            if 'images' not in scene_def:
-                scene_def['images'] = []
+            if 'add' not in scene_def:
+                scene_def['add'] = []
             TABLES[admin_id] = {
                 'scene_def': scene_def,
                 'public_id': ''.join(random.choices(string.ascii_uppercase, k=6)),
                 'visible_clips': [],
-                'visible_images': [],
+                'added_elems': [],
                 'display_all': False,
                 'timer_end': None,
             }
@@ -123,8 +136,8 @@ def admin_as_html(admin_id):
                 table['timer_end'] = (datetime.now() + timedelta(minutes=countdown_minutes)).timestamp()
             table['visible_clips'] = [int(key.split('enable_clip_')[1]) for key, value in request.form.items()
                                       if key.startswith('enable_clip_') and value == 'on']
-            table['visible_images'] = [int(key.split('enable_image_')[1]) for key, value in request.form.items()
-                                      if key.startswith('enable_image_') and value == 'on']
+            table['added_elems'] = [int(key.split('enable_elem_')[1]) for key, value in request.form.items()
+                                    if key.startswith('enable_elem_') and value == 'on']
             TABLES.move_to_end(admin_id)  # move on top of OrderedDict (must be done manually on updates)
     return render_template('admin.html', table=TABLES[admin_id])
 
