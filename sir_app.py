@@ -87,7 +87,8 @@ def index_as_json():
 
 @APP.route('/admin/<admin_id>', methods=('GET', 'POST'))
 def admin_as_html(admin_id):
-    # TABLES[admin_id] = {'scene_def': SCENE_DEFS[0], 'public_id': 'ABCDEF', 'visible_clips': [], 'display_all': False}  # uncomment this while working on a scene
+    # Uncomment this while working on a scene, to help iterating on SVGs positions:
+    # TABLES[admin_id] = {'scene_def': SCENE_DEFS[0], 'public_id': 'ABCDEF', 'visible_clips': [], 'display_all': False}
     if request.method == 'POST':
         if admin_id not in TABLES:  # => table creation
             autocleanup()
