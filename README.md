@@ -11,7 +11,7 @@ This web application was made as a companion for some scenarios for [Run. Die. R
 
 <!-- TODO: add link to my scenarios -->
 
-![](https://lucas-c.github.io/jdr/RunDieRepeat/hallways_of_thime_by_djekspek_small.jpg)
+![](demo.png)
 ![](https://lucas-c.github.io/jdr/RunDieRepeat/EnqueteAuVillage-small.jpg)
 
 # Demo images
