@@ -4,9 +4,12 @@
 import copy, json, os, random, string
 from collections import OrderedDict
 from datetime import datetime, timedelta
+from urllib.parse import unquote_plus
+from urllib.request import urlopen
 
 from flask import Flask, abort, jsonify, render_template, request
 from jsonschema import validate
+from PIL import Image
 
 
 with open('scene-definition-schema.json') as schema_file:
@@ -105,8 +108,15 @@ def admin_as_html(admin_id):
         if admin_id not in TABLES:  # => table creation
             autocleanup()
             scene_def_id = request.form.get('scene_def_id') and int(request.form.get('scene_def_id'))
+            image_url = request.form.get('image_url')
             if scene_def_id:
                 scene_def = copy.deepcopy(SCENE_DEFS[scene_def_id - 1])
+            elif image_url:
+                clip_width = int(request.form.get('clip_width', '50'))
+                clip_height = int(request.form.get('clip_height', '50'))
+                offset_x = int(request.form.get('offset_x', '0'))
+                offset_y = int(request.form.get('offset_y', '0'))
+                scene_def = scene_def_from_image(image_url, clip_width, clip_height, offset_x, offset_y)
             elif request.form.get('scene_def'):
                 scene_def = json.loads(request.form['scene_def'])
                 validate(instance=scene_def, schema=SCENE_DEF_SCHEMA)  # avoids any HTML/SVG injection
@@ -149,6 +159,24 @@ def table_as_html(public_id):
 def table_as_json(public_id):
     table = next(t for t in TABLES.values() if t['public_id'] == public_id)
     return jsonify(table)
+
+def scene_def_from_image(image_url, clip_width, clip_height, offset_x=0, offset_y=0):
+    name = os.path.splitext(unquote_plus(os.path.basename(image_url)))[0]
+    width, height = Image.open(urlopen(image_url)).size
+    x, clips = offset_x, []
+    while x < width:
+        y = offset_y
+        while y < height:
+            clips.append({'type': 'rect', 'x': x, 'y': y,
+                          'width': min(clip_width, width - x), 'height': min(clip_height, height - y)})
+            y += clip_height
+        x += clip_width
+    return {
+        'name': name,
+        'img': {
+            'url': image_url,
+            'width': width, 'height': height,
+        }, 'clips': clips}
 
 def autocleanup():
     while len(TABLES) > MAX_TABLES_COUNT:

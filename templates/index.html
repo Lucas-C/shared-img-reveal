@@ -17,8 +17,12 @@
     {% endfor %}
     </select>
     <br><br>
-    <button type="button" onclick="toggleTextareaHeight()">or define your own <em>(advanced usage, click to reveal JSON)</em></button>
-    <textarea id="scene_def" name="scene_def" style="height: 0">{{ scene_defs[0] | tojson(indent=2) }}</textarea>
+    <label for="image_url">or just provide the URL of an image:</label><br>
+    <input type="text" name="image_url"><br>
+    <small>(<label for="clip_width">clip width</label>: <input type="number" name="clip_width" value="50"> <label for="clip_height">clip height</label>: <input type="number" name="clip_height" value="50"> <label for="offsex_x">offset x</label>: <input type="number" name="offsex_x" value="0"> <label for="offsex_y">offset y</label>: <input type="number" name="offsex_y" value="0">)</small>
+    <br><br>
+    <button type="button" onclick="toggleTextareaHeight()">or define your own scene <em>(advanced usage, click to reveal JSON)</em></button>
+    <textarea name="scene_def" style="height: 0"></textarea>
     <input type="submit" value="Create table">
   </form>
   <footer>
@@ -26,17 +30,28 @@
   </footer>
   <script>
     const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+    const DEFAULT_TEXTAREA_CONTENT = `{{ scene_defs[0] | tojson(indent=2) }}`;
     let table = '';
     while (table.length < 6) {
       table += CHARS[Math.floor(Math.random() * CHARS.length)];
     }
-    document.forms[0].action = 'admin/' + table;
+    const form = document.forms[0];
+    form.action = 'admin/' + table;
+    form.addEventListener('submit', function (event) {
+      // Prevent to submit form if none of the inputs is set:
+      if (!Number(form.scene_def_id.value) && !form.image_url.value && !form.scene_def.value) {
+        event.preventDefault();
+      }
+    });
     function toggleTextareaHeight() {
-      const currentHeight = window.scene_def.style.height;
+      const currentHeight = form.scene_def.style.height;
       if (currentHeight === '0px') {
-        window.scene_def.style.height = '25rem';
+        form.scene_def_id.value = 0;
+        form.image_url.value = '';
+        form.scene_def.value = DEFAULT_TEXTAREA_CONTENT;
+        form.scene_def.style.height = '25rem';
       } else {
-        window.scene_def.style.height = 0;
+        form.scene_def.style.height = 0;
       }
     }
   </script>

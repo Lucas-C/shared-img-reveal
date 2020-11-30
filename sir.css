@@ -12,6 +12,7 @@ footer, textarea {
   height: 25rem;
   transition: height 0.2s ease-out;
 }
+input[type='text'] { width: 40rem; }
 button, input[type='submit'] {
   font-size: 1rem;
   padding: 1rem;
