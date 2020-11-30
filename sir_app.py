@@ -45,7 +45,7 @@ SCENE_DEFS = (
             {'type': 'ellipse', 'cx': 300, 'cy': 610, 'rx': 100, 'ry': 70},  # Treasure Cave
     ], 'add': [
         {'type': 'image', 'xlink:href': 'https://chezsoi.org/lucas/jdr/shared-img-reveal/rocks.png', 'x': 360, 'y': 210, 'width': 80, 'height': 80},
-    ],'duration_in_min': 45},
+    ], 'duration_in_min': 45},
     {'name': 'Enquête sous pression à ValTordu', 'img': {
         'url': 'https://chezsoi.org/lucas/jdr/shared-img-reveal/EnqueteAuVillage.jpg',
         'width': 1575, 'height': 881,
@@ -86,7 +86,7 @@ SCENE_DEFS = (
                          'font-family': 'Arial Black', 'font-size': 40, 'fill': 'white'},
         {'type': 'text', 'content': 'Jacques', 'x': 1350, 'y': 220,
                          'font-family': 'Arial Black', 'font-size': 40, 'fill': 'white'},
-    ]},
+    ], 'duration_in_min': 45},
 )
 APP = Flask(__name__, static_folder='.', static_url_path='')
 TABLES = OrderedDict()  # in-memory data state
@@ -164,13 +164,14 @@ def table_as_json(public_id):
 
 def scene_def_from_image(image_url, clip_width, clip_height, offset_x=0, offset_y=0):
     name = os.path.splitext(unquote_plus(os.path.basename(image_url)))[0]
-    width, height = Image.open(urlopen(image_url)).size  # nosec: checked in calling function
+    width, height = Image.open(urlopen(image_url)).size  # nosec: URL scheme is checked by calling function
     x, clips = offset_x, []
     while x < width:
         y = offset_y
         while y < height:
             clips.append({'type': 'rect', 'x': x, 'y': y,
-                          'width': min(clip_width, width - x), 'height': min(clip_height, height - y)})
+                          'width': min(clip_width, width - x),
+                          'height': min(clip_height, height - y)})
             y += clip_height
         x += clip_width
     return {
