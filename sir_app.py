@@ -57,7 +57,6 @@ SCENE_DEFS = (
             {'type': 'ellipse', 'cx': 700, 'cy': 170, 'rx': 120, 'ry': 120},  # Church
             {'type': 'ellipse', 'cx': 620, 'cy': 500, 'rx': 150, 'ry': 100},  # Mill
             {'type': 'ellipse', 'cx': 650, 'cy': 340, 'rx': 120, 'ry': 100},  # Main street
-            # {'type': 'ellipse', 'cx': 720, 'cy': 365, 'rx': 220, 'ry': 90},  # Main street
             # South-East
             {'type': 'ellipse', 'cx': 830, 'cy': 410, 'rx': 130, 'ry': 110},  # Main street
             {'type': 'ellipse', 'cx': 1100, 'cy': 470, 'rx': 220, 'ry': 190},  # Well place

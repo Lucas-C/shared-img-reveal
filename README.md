@@ -7,9 +7,7 @@ Online demo at: <https://chezsoi.org/lucas/jdr/shared-img-reveal/>
 **Usage**: the [GM](https://en.wikipedia.org/wiki/Gamemaster) creates a table, and share the public URL with players.
 The portions of the image seen by the other players can then be controlled the GM by clicking the hatched zones.
 
-This web application was made as a companion for some scenarios for [Run. Die. Repeat.](https://labrysgames.itch.io/run-die-repeat).
-
-<!-- TODO: add link to my scenarios -->
+This web application was made as a companion for some scenarios for [Run. Die. Repeat.](https://labrysgames.itch.io/run-die-repeat) : [Les Couloirs du Temps @ itch.io](https://lucas-c.itch.io/les-couloirs-du-temps).
 
 ![](demo.png)
 ![](https://lucas-c.github.io/jdr/RunDieRepeat/EnqueteAuVillage-small.jpg)
