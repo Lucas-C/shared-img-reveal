@@ -112,6 +112,8 @@ def admin_as_html(admin_id):
             if scene_def_id:
                 scene_def = copy.deepcopy(SCENE_DEFS[scene_def_id - 1])
             elif image_url:
+                if not image_url.startswith('http'):
+                    abort(422, 'Invalid input: "image_url" must be an HTTP URL')
                 clip_width = int(request.form.get('clip_width', '50'))
                 clip_height = int(request.form.get('clip_height', '50'))
                 offset_x = int(request.form.get('offset_x', '0'))
@@ -162,7 +164,7 @@ def table_as_json(public_id):
 
 def scene_def_from_image(image_url, clip_width, clip_height, offset_x=0, offset_y=0):
     name = os.path.splitext(unquote_plus(os.path.basename(image_url)))[0]
-    width, height = Image.open(urlopen(image_url)).size
+    width, height = Image.open(urlopen(image_url)).size  # nosec: checked in calling function
     x, clips = offset_x, []
     while x < width:
         y = offset_y
