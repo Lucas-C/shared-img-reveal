@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # coding: utf-8
 
-import copy, json, os, random, string
+import copy, json, os, random, string, time
 from collections import OrderedDict
 from datetime import datetime, timedelta
 from urllib.parse import unquote_plus
@@ -90,7 +90,9 @@ SCENE_DEFS = (
 )
 APP = Flask(__name__, static_folder='.', static_url_path='')
 TABLES = OrderedDict()  # in-memory data state
-MAX_TABLES_COUNT = 50
+MAX_TABLES_COUNT = int(os.environ.get('MAX_TABLES_COUNT', '50'))
+PORT = int(os.environ.get('PORT', '8086'))
+MODULE_LOAD_START_TIME = time.time()
 
 @APP.route('/')
 def index_as_html():
@@ -98,7 +100,11 @@ def index_as_html():
 
 @APP.route('/json')
 def index_as_json():
-    return jsonify({'tables_count': len(TABLES)})
+    return jsonify({
+        'tables': TABLES,
+        'MAX_TABLES_COUNT': MAX_TABLES_COUNT,
+        'uptime_in_hours': int(time.time() - MODULE_LOAD_START_TIME) / 3600,
+    })
 
 @APP.route('/admin/<admin_id>', methods=('GET', 'POST'))
 def admin_as_html(admin_id):
@@ -184,8 +190,8 @@ def scene_def_from_image(image_url, clip_width, clip_height, offset_x=0, offset_
 def autocleanup():
     while len(TABLES) > MAX_TABLES_COUNT:
         admin_id, table = TABLES.popitem(last=True)
-        print('autocleanup removed table:', table['name'], 'admin_id=', admin_id, 'public_id=', table['public_id'])
+        print('autocleanup removed table:', table['scene_def']['name'], 'admin_id=', admin_id, 'public_id=', table['public_id'])
 
 
 if __name__ == '__main__':
-    APP.run(port=int(os.environ.get('PORT', '8086')))
+    APP.run(port=PORT)
