@@ -100,7 +100,9 @@ def index_as_html():
 
 @APP.route('/json')
 def index_as_json():
+    table_last_update_times = [table['last_update_time'] for table in TABLES.values()]
     return jsonify({
+        'last_table_update_time': max(table_last_update_times) if table_last_update_times else None,
         'tables': TABLES,
         'MAX_TABLES_COUNT': MAX_TABLES_COUNT,
         'uptime_in_hours': int(time.time() - MODULE_LOAD_START_TIME) / 3600,
@@ -137,7 +139,7 @@ def admin_as_html(admin_id):
                 scene_def['clips'] = []
             if 'add' not in scene_def:
                 scene_def['add'] = []
-            TABLES[admin_id] = {
+            table = {
                 'scene_def': scene_def,
                 'public_id': ''.join(random.choices(string.ascii_uppercase, k=6)),
                 'visible_clips': [],
@@ -145,6 +147,7 @@ def admin_as_html(admin_id):
                 'display_all': False,
                 'timer_end': None,
             }
+            TABLES[admin_id] = table
         else:  # => table update
             table = TABLES[admin_id]
             table['display_all'] = request.form.get('display_all') == 'on'
@@ -156,6 +159,7 @@ def admin_as_html(admin_id):
             table['added_elems'] = [int(key.split('enable_elem_')[1]) for key, value in request.form.items()
                                     if key.startswith('enable_elem_') and value == 'on']
             TABLES.move_to_end(admin_id)  # move on top of OrderedDict (must be done manually on updates)
+        table['last_update_time'] = datetime.now()
     return render_template('admin.html', table=TABLES[admin_id])
 
 @APP.route('/table/<public_id>')
