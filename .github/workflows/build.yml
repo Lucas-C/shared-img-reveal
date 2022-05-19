@@ -10,21 +10,17 @@ jobs:
     name: Lint, test & build PDF
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Checkout code 🛎️
         uses: actions/checkout@v3
-      - name: Set up Python 3.8
+      - name: Set up Python 3.8 🔧
         uses: actions/setup-python@v3
         with:
           python-version: 3.8
-      - name: Install dependencies
-        run: |
-          pip install bandit pylint pytest -r requirements.txt
-      - name: Linter
-        run: |
-          pylint sir_app.py
-      - name: Tests
-        run: |
-          pytest
-      - name: Looking for security vulnerabilities
-        run: |
-          bandit sir_app.py
+      - name: Install dependencies ⚙️
+        run: pip install bandit pylint pytest -r requirements.txt
+      - name: Linter 🔎
+        run: pylint sir_app.py
+      - name: Tests ☑
+        run: pytest
+      - name: Looking for security vulnerabilities 🔎
+        run: bandit sir_app.py

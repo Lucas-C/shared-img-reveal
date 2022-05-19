@@ -12,7 +12,7 @@ from jsonschema import validate
 from PIL import Image
 
 
-with open('scene-definition-schema.json') as schema_file:
+with open('scene-definition-schema.json', encoding='utf8') as schema_file:
     SCENE_DEF_SCHEMA = json.load(schema_file)
 SCENE_DEFS = (
     {'name': 'Hallways of Thime', 'img': {
@@ -174,7 +174,8 @@ def table_as_json(public_id):
 
 def scene_def_from_image(image_url, clip_width, clip_height, offset_x=0, offset_y=0):
     name = os.path.splitext(unquote_plus(os.path.basename(image_url)))[0]
-    width, height = Image.open(urlopen(image_url)).size  # nosec: URL scheme is checked by calling function
+    with Image.open(urlopen(image_url)) as img:
+        width, height = img.size  # nosec: URL scheme is checked by calling function
     x, clips = offset_x, []
     while x < width:
         y = offset_y

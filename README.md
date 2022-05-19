@@ -19,7 +19,10 @@ This web application was made as a companion for some scenarios for [Run. Die. R
 - [Fantasy portraits by TinySecretDoor](https://www.deviantart.com/tinysecretdoor/gallery/52921157/fantasy-portraits) - [CC BY-NC 3.0](https://creativecommons.org/licenses/by-nc/3.0/)
 
 Many more great CC BY-NC isometric maps can be found here: https://www.elventower.com/isometric-maps/
-
+<!-- Other great illustrations:
+* https://www.reddit.com/r/battlemaps/comments/lqf3yz/epic_isometric_crystal_dungeon/
+* https://www.reddit.com/r/FantasyMaps/comments/l3g2os/secret_city_settlement_map/
+-->
 
 # Installation
 
