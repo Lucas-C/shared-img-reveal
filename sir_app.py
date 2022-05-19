@@ -141,7 +141,7 @@ def admin_as_html(admin_id):
                 scene_def['add'] = []
             table = {
                 'scene_def': scene_def,
-                'public_id': ''.join(random.choices(string.ascii_uppercase, k=6)),
+                'public_id': ''.join(random.choices(string.ascii_uppercase, k=6)),  # nosec: Standard pseudo-random generators are not suitable for security/cryptographic purposes
                 'visible_clips': [],
                 'added_elems': [],
                 'display_all': False,
@@ -174,8 +174,8 @@ def table_as_json(public_id):
 
 def scene_def_from_image(image_url, clip_width, clip_height, offset_x=0, offset_y=0):
     name = os.path.splitext(unquote_plus(os.path.basename(image_url)))[0]
-    with Image.open(urlopen(image_url)) as img:
-        width, height = img.size  # nosec: URL scheme is checked by calling function
+    with Image.open(urlopen(image_url)) as img:  # nosec: URL scheme is checked by calling function
+        width, height = img.size
     x, clips = offset_x, []
     while x < width:
         y = offset_y
