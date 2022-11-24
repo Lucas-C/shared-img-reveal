@@ -18,10 +18,12 @@ This web application was made as a companion for some scenarios for [Run. Die. R
 - [Map - Small Town](https://www.deviantart.com/ekizius/art/Map-Small-Town-795100291) & [Map - Village](https://www.deviantart.com/ekizius/art/Map-Village-795100444) by Ekizius - [CC BY-NC-SA 3.0](https://creativecommons.org/licenses/by-nc-sa/3.0/)
 - [Fantasy portraits by TinySecretDoor](https://www.deviantart.com/tinysecretdoor/gallery/52921157/fantasy-portraits) - [CC BY-NC 3.0](https://creativecommons.org/licenses/by-nc/3.0/)
 
-Many more great CC BY-NC isometric maps can be found here: https://www.elventower.com/isometric-maps/
+Many more great CC BY-NC isometric maps can be found at [One Page Dungeon Contest](https://www.dungeoncontest.com/) or here: https://www.elventower.com/isometric-maps/
 <!-- Other great illustrations:
 * https://www.reddit.com/r/battlemaps/comments/lqf3yz/epic_isometric_crystal_dungeon/
 * https://www.reddit.com/r/FantasyMaps/comments/l3g2os/secret_city_settlement_map/
+* Rudok's Tavern | Main Hall isometric map : https://i.redd.it/0wbqhfakpfl61.jpg
+* https://i.redd.it/ugtywg3wejs61.jpg -> explo post-apo ?
 -->
 
 # Installation
