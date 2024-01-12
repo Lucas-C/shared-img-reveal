@@ -22,6 +22,7 @@ Many more great CC BY-NC isometric maps can be found at [One Page Dungeon Contes
 <!-- Other great illustrations:
 * https://www.reddit.com/r/battlemaps/comments/lqf3yz/epic_isometric_crystal_dungeon/
 * https://www.reddit.com/r/FantasyMaps/comments/l3g2os/secret_city_settlement_map/
+* They Dug Too Deep : https://moira-games.itch.io/they-dug-too-deep
 * Rudok's Tavern | Main Hall isometric map : https://i.redd.it/0wbqhfakpfl61.jpg
 * https://i.redd.it/ugtywg3wejs61.jpg -> explo post-apo ?
 -->
