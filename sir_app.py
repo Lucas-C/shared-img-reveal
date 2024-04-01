@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # coding: utf-8
+# Note : Roll20 is free an can be a better an alternative :D
 
 import copy, json, os, random, string, time
 from collections import OrderedDict
@@ -16,7 +17,7 @@ with open('scene-definition-schema.json', encoding='utf8') as schema_file:
     SCENE_DEF_SCHEMA = json.load(schema_file)
 SCENE_DEFS = (
     {'name': 'Hallways of Thime', 'img': {
-        'url': 'https://chezsoi.org/lucas/jdr/shared-img-reveal/hallways_of_thime_by_djekspek_HD_no_comments.jpg',
+        'url': 'hallways_of_thime_by_djekspek_HD_no_comments.jpg',
         'width': 1158, 'height': 818,
         }, 'clips': [
             {'type': 'rect', 'x': 190, 'y': 0, 'width': 780, 'height': 36},  # Title
@@ -43,11 +44,11 @@ SCENE_DEFS = (
             {'type': 'ellipse', 'cx': 565, 'cy': 590, 'rx': 80, 'ry': 45},   # Water Basin
             {'type': 'ellipse', 'cx': 300, 'cy': 460, 'rx': 110, 'ry': 80},  # Machine Room
             {'type': 'ellipse', 'cx': 300, 'cy': 610, 'rx': 100, 'ry': 70},  # Treasure Cave
-    ], 'add': [
-        {'type': 'image', 'xlink:href': 'https://chezsoi.org/lucas/jdr/shared-img-reveal/rocks.png', 'x': 360, 'y': 210, 'width': 80, 'height': 80},
-    ], 'duration_in_min': 45},
+        ], 'add': [
+            {'type': 'image', 'xlink:href': 'rocks.png', 'x': 360, 'y': 210, 'width': 80, 'height': 80},
+        ], 'duration_in_min': 45},
     {'name': 'Enquête sous pression à ValTordu', 'img': {
-        'url': 'https://chezsoi.org/lucas/jdr/shared-img-reveal/EnqueteAuVillage.jpg',
+        'url': 'EnqueteAuVillage.jpg',
         'width': 1575, 'height': 881,
         }, 'clips': [
             # North-West
@@ -73,20 +74,35 @@ SCENE_DEFS = (
             {'type': 'ellipse', 'cx': 120, 'cy': 740, 'rx': 110, 'ry': 140},  # Wizard
             {'type': 'ellipse', 'cx': 378, 'cy': 740, 'rx': 110, 'ry': 140},  # Mayor
             {'type': 'ellipse', 'cx': 635, 'cy': 740, 'rx': 110, 'ry': 140},  # Clockmaker
-    ], 'add': [
-        {'type': 'text', 'content': 'Faraday', 'x': 32, 'y': 825,
-                         'font-family': 'Arial Black', 'font-size': 40, 'fill': 'white'},
-        {'type': 'text', 'content': 'Douglas', 'x': 290, 'y': 825,
-                         'font-family': 'Arial Black', 'font-size': 40, 'fill': 'white'},
-        {'type': 'text', 'content': 'Erneste', 'x': 550, 'y': 825,
-                         'font-family': 'Arial Black', 'font-size': 40, 'fill': 'white'},
-        {'type': 'text', 'content': 'Sirius', 'x': 870, 'y': 220,
-                         'font-family': 'Arial Black', 'font-size': 40, 'fill': 'white'},
-        {'type': 'text', 'content': 'Marko', 'x': 1110, 'y': 220,
-                         'font-family': 'Arial Black', 'font-size': 40, 'fill': 'white'},
-        {'type': 'text', 'content': 'Jacques', 'x': 1350, 'y': 220,
-                         'font-family': 'Arial Black', 'font-size': 40, 'fill': 'white'},
-    ], 'duration_in_min': 45},
+        ], 'add': [
+            {'type': 'text', 'content': 'Sirius', 'x': 870, 'y': 220,
+                             'font-family': 'Arial Black', 'font-size': 40, 'fill': 'red'},
+            {'type': 'text', 'content': 'Marko', 'x': 1110, 'y': 220,
+                             'font-family': 'Arial Black', 'font-size': 40, 'fill': 'green'},
+            {'type': 'text', 'content': 'Jacques', 'x': 1350, 'y': 220,
+                             'font-family': 'Arial Black', 'font-size': 40, 'fill': 'purple'},
+            {'type': 'text', 'content': 'Faraday', 'x': 32, 'y': 825,
+                             'font-family': 'Arial Black', 'font-size': 40, 'fill': 'blue'},
+            {'type': 'text', 'content': 'Douglas', 'x': 290, 'y': 825,
+                             'font-family': 'Arial Black', 'font-size': 40, 'fill': 'orange'},
+            {'type': 'text', 'content': 'Erneste', 'x': 550, 'y': 825,
+                             'font-family': 'Arial Black', 'font-size': 40, 'fill': 'grey'},
+        ], 'characters': [
+            {'visible': True, 'name': 'Sirius',  'color': 'red'},
+            {'visible': True, 'name': 'Marko',   'color': 'green'},
+            {'visible': True, 'name': 'Jacques', 'color': 'purple'},
+            {'visible': True, 'name': 'Faraday', 'color': 'blue'},
+            {'visible': True, 'name': 'Douglas', 'color': 'orange'},
+            {'visible': True, 'name': 'Erneste', 'color': 'grey'},
+        ], 'duration_in_min': 45, 'show_list_of_characters': False},
+)
+CHARACTERS = (
+    {'visible': False, 'name': '', 'color': 'red'},
+    {'visible': False, 'name': '', 'color': 'green'},
+    {'visible': False, 'name': '', 'color': 'purple'},
+    {'visible': False, 'name': '', 'color': 'blue'},
+    {'visible': False, 'name': '', 'color': 'orange'},
+    {'visible': False, 'name': '', 'color': 'grey'},
 )
 APP = Flask(__name__, static_folder='.', static_url_path='')
 TABLES = OrderedDict()  # in-memory data state
@@ -112,10 +128,10 @@ def index_as_json():
 def admin_as_html(admin_id):
     # Uncomment this while working on a scene, to help iterating on SVGs positions:
     # TABLES[admin_id] = {'scene_def': SCENE_DEFS[0], 'public_id': 'ABCDEF', 'visible_clips': [], 'display_all': False}
-    if request.method == 'POST':
+    if request.method == 'POST' or True:
         if admin_id not in TABLES:  # => table creation
             autocleanup()
-            scene_def_id = request.form.get('scene_def_id') and int(request.form.get('scene_def_id'))
+            scene_def_id = 1 # request.form.get('scene_def_id') and int(request.form.get('scene_def_id'))
             image_url = request.form.get('image_url')
             if scene_def_id:
                 scene_def = copy.deepcopy(SCENE_DEFS[scene_def_id - 1])
@@ -139,6 +155,10 @@ def admin_as_html(admin_id):
                 scene_def['clips'] = []
             if 'add' not in scene_def:
                 scene_def['add'] = []
+            if 'color' not in scene_def:
+                scene_def['color'] = 'white'
+            if 'show_list_of_characters' not in scene_def:
+                scene_def['show_list_of_characters'] = True
             table = {
                 'scene_def': scene_def,
                 'public_id': ''.join(random.choices(string.ascii_uppercase, k=6)),  # nosec: Standard pseudo-random generators are not suitable for security/cryptographic purposes
@@ -147,6 +167,8 @@ def admin_as_html(admin_id):
                 'display_all': False,
                 'timer_end': None,
             }
+            characters = scene_def.get('characters', CHARACTERS)
+            table['characters'] = [dict(**character) for character in characters]
             TABLES[admin_id] = table
         else:  # => table update
             table = TABLES[admin_id]
@@ -156,6 +178,13 @@ def admin_as_html(admin_id):
                 table['timer_end'] = (datetime.now() + timedelta(minutes=countdown_minutes)).timestamp()
             table['visible_clips'] = [int(key.split('enable_clip_')[1]) for key, value in request.form.items()
                                       if key.startswith('enable_clip_') and value == 'on']
+            for key, value in request.form.items():
+                if key.startswith('enable_character_'):
+                    index = int(key.split('enable_character_')[1])
+                    table['characters'][index]['visible'] = value == 'on'
+                if key.startswith('character_name_'):
+                    index = int(key.split('character_name_')[1])
+                    table['characters'][index]['name'] = value
             table['added_elems'] = [int(key.split('enable_elem_')[1]) for key, value in request.form.items()
                                     if key.startswith('enable_elem_') and value == 'on']
             TABLES.move_to_end(admin_id)  # move on top of OrderedDict (must be done manually on updates)

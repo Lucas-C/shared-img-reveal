@@ -5,8 +5,20 @@
   <meta content="width=device-width, initial-scale=1" name="viewport"/>
   <title>Shared image reveal app: {{ table.scene_def.name }}</title>
   <link rel="stylesheet" href="../sir.css">
+  <base href="../">
 </head>
 <body id="table">
+  {% if table.scene_def.show_list_of_characters %}
+  <div id="characters">
+  {% for character in table.characters %}
+    {% if character.visible %}
+    <div class="character">
+      <span style="color: {{ character.color }}">⬤ {{ character.name }}</span>
+    </div>
+    {% endif %}
+  {% endfor %}
+  </div>
+  {% endif %}
   <!-- The viewBox ratio must match the image ratio, so that the image can fully fill the <svg>: -->
   <svg viewBox="0 0 {{ table.scene_def.img.width }} {{ table.scene_def.img.height }}">
     {% if table.display_all %}

@@ -5,6 +5,10 @@
   <meta content="width=device-width, initial-scale=1" name="viewport"/>
   <title>Shared image reveal app: {{ table.scene_def.name }}</title>
   <link rel="stylesheet" href="../sir.css">
+  <base href="../">
+  <style>
+  .clip { stroke: {{ table.scene_def.color }}; }
+  </style>
 </head>
 <body id="table">
   <!-- The viewBox ratio must match the image ratio, so that the image can fully fill the <svg>: -->
@@ -24,23 +28,33 @@
     {% endfor %}
     <pattern id="diagonalHatch" patternUnits="userSpaceOnUse" width="10" height="10">
       <!-- Tweaked recipe from: https://stackoverflow.com/a/14500054/636849 -->
-      <path d="M0,10 l10,-10" style="stroke:white; stroke-width:1" />
+      <path d="M0,10 l10,-10" style="stroke: {{ table.scene_def.color }}; stroke-width:1" />
     </pattern>
   </svg>
   {% if table.timer_end %}<div id="timer"></div>{% endif %}
   <form class="admin" method="POST">
     <div>Table public URL: <a href="../table/{{ table.public_id }}">{{ table.public_id }}</a></div>
-    {% for clip in table.scene_def.clips %}
-      <input type="checkbox" name="enable_clip_{{ loop.index0 }}" {{ 'checked' if loop.index0 in table.visible_clips else '' }}/>
+    {% if table.scene_def.show_list_of_characters %}
+    <fieldset id="characters">
+    {% for character in table.characters %}
+      <div class="character">
+        <input onclick="document.forms[0].submit()" type="checkbox" name="enable_character_{{ loop.index0 }}" {{ 'checked' if character.visible else '' }} style="color: {{ character.color }}"></span>
+        <input onfocusout="document.forms[0].submit()" name="character_name_{{ loop.index0 }}" value="{{ character.name }}" size="16"/>
+      </div>
+    {% endfor %}
+    </fieldset>
+    {% endif %}
+    {% for _ in table.scene_def.clips %}
+      <input type="checkbox" class="hidden" name="enable_clip_{{ loop.index0 }}" {{ 'checked' if loop.index0 in table.visible_clips else '' }}/>
     {% endfor %}
     {% for elem in table.scene_def.add %}
-      <input type="checkbox" name="enable_elem_{{ loop.index0 }}" {{ 'checked' if loop.index0 in table.added_elems else '' }}/>
+      <input type="checkbox" class="hidden" name="enable_elem_{{ loop.index0 }}" {{ 'checked' if loop.index0 in table.added_elems else '' }}/>
     {% endfor %}
-    <input type="checkbox" id="display_all" name="display_all" class="switch" {{ 'checked' if table.display_all else '' }} onchange="this.form.submit()"/>
+    <input type="checkbox" class="switch hidden" id="display_all" name="display_all" {{ 'checked' if table.display_all else '' }} onchange="this.form.submit()"/>
     <label for="display_all">Display all</label>
     <label for="display_all">Countdown (min):</label>
     <input type="number" name="countdown_minutes" value="{{ table.scene_def.duration_in_min or 20 }}"/>
-    <input type="checkbox" id="reset_timer" name="reset_timer" class="switch" onchange="this.form.submit()"/>
+    <input type="checkbox" class="switch hidden" id="reset_timer" name="reset_timer" onchange="this.form.submit()"/>
     <label for="reset_timer">Reset timer</label>
   </form>
   <script>
