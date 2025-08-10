@@ -15,7 +15,7 @@ jobs:
       - name: Set up Python 3.8 🔧
         uses: actions/setup-python@v3
         with:
-          python-version: 3.8
+          python-version: 3.13
       - name: Install dependencies ⚙️
         run: pip install bandit pylint pytest -r requirements.txt
       - name: Linter 🔎
