@@ -26,6 +26,7 @@ Many more great CC BY-NC isometric maps can be found at [One Page Dungeon Contes
 * https://www.reddit.com/r/FantasyMaps/comments/l3g2os/secret_city_settlement_map/
 * Rudok's Tavern | Main Hall isometric map : https://i.redd.it/0wbqhfakpfl61.jpg
 * https://i.redd.it/ugtywg3wejs61.jpg -> explo post-apo ?
+* https://www.reddit.com/r/inkarnate/comments/oosl2a/the_wizards_tower/
 -->
 
 # Installation

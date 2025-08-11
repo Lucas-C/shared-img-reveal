@@ -19,6 +19,12 @@
         }, "required": ["type"], "patternProperties": {
             "[a-z-]+": {"anyOf": [{"type": "string", "pattern": "[a-zA-Z0-9 -]+"}, {"type": "number"}]}
         }, "additionalProperties": false}},
-        "duration_in_min": {"type": "number"}
+        "characters": {"type": "array", "items": {"type": "object", "properties": {
+            "visible": {"type": "boolean"},
+            "name": {"type": "string"},
+            "color": {"type": "string"}
+        }, "additionalProperties": false}},
+        "duration_in_min": {"type": "number"},
+        "show_list_of_characters": {"type": "boolean"}
     }, "required": ["name", "img"], "additionalProperties": false
 }

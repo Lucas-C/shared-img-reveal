@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    name: Lint, test & build PDF
+    name: Lint & test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code 🛎️

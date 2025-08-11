@@ -1,4 +1,4 @@
 [MESSAGES CONTROL]
-disable = missing-docstring, multiple-imports
+disable = missing-docstring, multiple-imports, too-many-branches, too-many-statements
 max-line-length = 180
 good-names = x,y

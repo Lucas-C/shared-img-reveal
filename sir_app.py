@@ -128,67 +128,66 @@ def index_as_json():
 def admin_as_html(admin_id):
     # Uncomment this while working on a scene, to help iterating on SVGs positions:
     # TABLES[admin_id] = {'scene_def': SCENE_DEFS[0], 'public_id': 'ABCDEF', 'visible_clips': [], 'display_all': False}
-    if request.method == 'POST' or True:
-        if admin_id not in TABLES:  # => table creation
-            autocleanup()
-            scene_def_id = 1 # request.form.get('scene_def_id') and int(request.form.get('scene_def_id'))
-            image_url = request.form.get('image_url')
-            if scene_def_id:
-                scene_def = copy.deepcopy(SCENE_DEFS[scene_def_id - 1])
-            elif image_url:
-                if not image_url.startswith('http'):
-                    abort(422, 'Invalid input: "image_url" must be an HTTP URL')
-                clip_width = int(request.form.get('clip_width', '50'))
-                clip_height = int(request.form.get('clip_height', '50'))
-                offset_x = int(request.form.get('offset_x', '0'))
-                offset_y = int(request.form.get('offset_y', '0'))
-                scene_def = scene_def_from_image(image_url, clip_width, clip_height, offset_x, offset_y)
-            elif request.form.get('scene_def'):
-                scene_def = json.loads(request.form['scene_def'])
-                validate(instance=scene_def, schema=SCENE_DEF_SCHEMA)  # avoids any HTML/SVG injection
-                if not any(scene_def['name'] == sd['name'] for sd in SCENE_DEFS):
-                    print('Creating table from custom scene definition!'
-                          ' admin_id=', admin_id, 'name:', scene_def['name'])
-            else:
-                abort(422, 'Invalid input: missing "scene_def_id" or "scene_def"')
-            if 'clips' not in scene_def:
-                scene_def['clips'] = []
-            if 'add' not in scene_def:
-                scene_def['add'] = []
-            if 'color' not in scene_def:
-                scene_def['color'] = 'white'
-            if 'show_list_of_characters' not in scene_def:
-                scene_def['show_list_of_characters'] = True
-            table = {
-                'scene_def': scene_def,
-                'public_id': ''.join(random.choices(string.ascii_uppercase, k=6)),  # nosec: Standard pseudo-random generators are not suitable for security/cryptographic purposes
-                'visible_clips': [],
-                'added_elems': [],
-                'display_all': False,
-                'timer_end': None,
-            }
-            characters = scene_def.get('characters', CHARACTERS)
-            table['characters'] = [dict(**character) for character in characters]
-            TABLES[admin_id] = table
-        else:  # => table update
-            table = TABLES[admin_id]
-            table['display_all'] = request.form.get('display_all') == 'on'
-            if request.form.get('reset_timer') == 'on':
-                countdown_minutes = int(request.form['countdown_minutes'])
-                table['timer_end'] = (datetime.now() + timedelta(minutes=countdown_minutes)).timestamp()
-            table['visible_clips'] = [int(key.split('enable_clip_')[1]) for key, value in request.form.items()
-                                      if key.startswith('enable_clip_') and value == 'on']
-            for key, value in request.form.items():
-                if key.startswith('enable_character_'):
-                    index = int(key.split('enable_character_')[1])
-                    table['characters'][index]['visible'] = value == 'on'
-                if key.startswith('character_name_'):
-                    index = int(key.split('character_name_')[1])
-                    table['characters'][index]['name'] = value
-            table['added_elems'] = [int(key.split('enable_elem_')[1]) for key, value in request.form.items()
-                                    if key.startswith('enable_elem_') and value == 'on']
-            TABLES.move_to_end(admin_id)  # move on top of OrderedDict (must be done manually on updates)
-        table['last_update_time'] = datetime.now()
+    if admin_id not in TABLES:  # => table creation
+        autocleanup()
+        scene_def_id = 1 # request.form.get('scene_def_id') and int(request.form.get('scene_def_id'))
+        image_url = request.form.get('image_url')
+        if scene_def_id:
+            scene_def = copy.deepcopy(SCENE_DEFS[scene_def_id - 1])
+        elif image_url:
+            if not image_url.startswith('http'):
+                abort(422, 'Invalid input: "image_url" must be an HTTP URL')
+            clip_width = int(request.form.get('clip_width', '50'))
+            clip_height = int(request.form.get('clip_height', '50'))
+            offset_x = int(request.form.get('offset_x', '0'))
+            offset_y = int(request.form.get('offset_y', '0'))
+            scene_def = scene_def_from_image(image_url, clip_width, clip_height, offset_x, offset_y)
+        elif request.form.get('scene_def'):
+            scene_def = json.loads(request.form['scene_def'])
+            validate(instance=scene_def, schema=SCENE_DEF_SCHEMA)  # avoids any HTML/SVG injection
+            if not any(scene_def['name'] == sd['name'] for sd in SCENE_DEFS):
+                print('Creating table from custom scene definition!'
+                      ' admin_id=', admin_id, 'name:', scene_def['name'])
+        else:
+            abort(422, 'Invalid input: missing "scene_def_id" or "scene_def"')
+        if 'clips' not in scene_def:
+            scene_def['clips'] = []
+        if 'add' not in scene_def:
+            scene_def['add'] = []
+        if 'color' not in scene_def:
+            scene_def['color'] = 'white'
+        if 'show_list_of_characters' not in scene_def:
+            scene_def['show_list_of_characters'] = True
+        table = {
+            'scene_def': scene_def,
+            'public_id': ''.join(random.choices(string.ascii_uppercase, k=6)),  # nosec: Standard pseudo-random generators are not suitable for security/cryptographic purposes
+            'visible_clips': [],
+            'added_elems': [],
+            'display_all': False,
+            'timer_end': None,
+        }
+        characters = scene_def.get('characters', CHARACTERS)
+        table['characters'] = [{**character} for character in characters]
+        TABLES[admin_id] = table
+    else:  # => table update
+        table = TABLES[admin_id]
+        table['display_all'] = request.form.get('display_all') == 'on'
+        if request.form.get('reset_timer') == 'on':
+            countdown_minutes = int(request.form['countdown_minutes'])
+            table['timer_end'] = (datetime.now() + timedelta(minutes=countdown_minutes)).timestamp()
+        table['visible_clips'] = [int(key.split('enable_clip_')[1]) for key, value in request.form.items()
+                                  if key.startswith('enable_clip_') and value == 'on']
+        for key, value in request.form.items():
+            if key.startswith('enable_character_'):
+                index = int(key.split('enable_character_')[1])
+                table['characters'][index]['visible'] = value == 'on'
+            if key.startswith('character_name_'):
+                index = int(key.split('character_name_')[1])
+                table['characters'][index]['name'] = value
+        table['added_elems'] = [int(key.split('enable_elem_')[1]) for key, value in request.form.items()
+                                if key.startswith('enable_elem_') and value == 'on']
+        TABLES.move_to_end(admin_id)  # move on top of OrderedDict (must be done manually on updates)
+    table['last_update_time'] = datetime.now()
     return render_template('admin.html', table=TABLES[admin_id])
 
 @APP.route('/table/<public_id>')
