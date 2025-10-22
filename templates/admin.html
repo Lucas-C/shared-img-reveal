@@ -33,7 +33,7 @@
   </svg>
   {% if table.timer_end %}<div id="timer"></div>{% endif %}
   <form class="admin" method="POST">
-    <div>Table public URL: <a href="../table/{{ table.public_id }}">{{ table.public_id }}</a></div>
+    <div>Table public URL: <a href="./table/{{ table.public_id }}">{{ table.public_id }}</a></div>
     {% if table.scene_def.show_list_of_characters %}
     <fieldset id="characters">
     {% for character in table.characters %}

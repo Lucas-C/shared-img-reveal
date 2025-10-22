@@ -53,6 +53,13 @@ Many more great CC BY-NC isometric maps can be found at [One Page Dungeon Contes
         proxy_pass http://127.0.0.1:8086;
     }
 
+## caddy configuration
+
+    handle_path /shared-img-reveal* {
+        reverse_proxy :8086
+    }
+
+
 ## License
 Thi code is released under [GPL v3 license](https://www.gnu.org/licenses/gpl-3.0.en.html),
 [climate-strike BSD](https://github.com/climate-strike/license/blob/master/licenses/BSD)
