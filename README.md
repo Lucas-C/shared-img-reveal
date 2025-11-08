@@ -17,16 +17,19 @@ This web application was made as a companion for some scenarios for [Run. Die. R
 - Rocks from [Isometric 64x64 Outside Tileset by Yar](https://opengameart.org/content/isometric-64x64-outside-tileset) - [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)
 - [Map - Small Town](https://www.deviantart.com/ekizius/art/Map-Small-Town-795100291) & [Map - Village](https://www.deviantart.com/ekizius/art/Map-Village-795100444) by Ekizius - [CC BY-NC-SA 3.0](https://creativecommons.org/licenses/by-nc-sa/3.0/)
 - [Fantasy portraits by TinySecretDoor](https://www.deviantart.com/tinysecretdoor/gallery/52921157/fantasy-portraits) - [CC BY-NC 3.0](https://creativecommons.org/licenses/by-nc/3.0/)
-- [Hidden Gods of the Woods by Moira Games](https://moira-games.itch.io/hidden-gods-of-the-woods) ([They dug too deep](https://moira-games.itch.io/they-dug-too-deep) by the same author is also a great one-page dungeon)
+
+## Other recommended single-image dungeons
+- [Hidden Gods of the Woods by Moira Games](https://moira-games.itch.io/hidden-gods-of-the-woods). [They dug too deep](https://moira-games.itch.io/they-dug-too-deep) by the same author is also a great one-page dungeon.
+- Matthew Crumpton puzzle maze: [The Maze of Shifting Shadows (r/puzzles)](https://www.reddit.com/r/puzzles/comments/1h59jhe/dungeon_puzzles_the_maze_of_shifting_shadows_art/)
+- [Crystal Dungeon by kittenpillows (r/battlemaps)](https://www.reddit.com/r/battlemaps/comments/lqf3yz/epic_isometric_crystal_dungeon/)
+- [The Wizard's Tower by 7Legionarmy (r/inkarnate)](https://www.reddit.com/r/inkarnate/comments/oosl2a/the_wizards_tower/)
 
 Many more great CC BY-NC isometric maps can be found at [One Page Dungeon Contest](https://www.dungeoncontest.com/) or here: https://www.elventower.com/isometric-maps/
 
 <!-- Other great illustrations:
-* https://www.reddit.com/r/battlemaps/comments/lqf3yz/epic_isometric_crystal_dungeon/
 * https://www.reddit.com/r/FantasyMaps/comments/l3g2os/secret_city_settlement_map/
 * Rudok's Tavern | Main Hall isometric map : https://i.redd.it/0wbqhfakpfl61.jpg
 * https://i.redd.it/ugtywg3wejs61.jpg -> explo post-apo ?
-* https://www.reddit.com/r/inkarnate/comments/oosl2a/the_wizards_tower/
 -->
 
 # Installation
