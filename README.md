@@ -23,6 +23,7 @@ This web application was made as a companion for some scenarios for [Run. Die. R
 - Matthew Crumpton puzzle maze: [The Maze of Shifting Shadows (r/puzzles)](https://www.reddit.com/r/puzzles/comments/1h59jhe/dungeon_puzzles_the_maze_of_shifting_shadows_art/)
 - [Crystal Dungeon by kittenpillows (r/battlemaps)](https://www.reddit.com/r/battlemaps/comments/lqf3yz/epic_isometric_crystal_dungeon/)
 - [The Wizard's Tower by 7Legionarmy (r/inkarnate)](https://www.reddit.com/r/inkarnate/comments/oosl2a/the_wizards_tower/)
+- [Bismuth Labyrinth by Czepeku](https://www.patreon.com/posts/bismuth-24x40-152627680)
 
 Many more great CC BY-NC isometric maps can be found at [One Page Dungeon Contest](https://www.dungeoncontest.com/) or here: https://www.elventower.com/isometric-maps/
 
@@ -30,6 +31,7 @@ Many more great CC BY-NC isometric maps can be found at [One Page Dungeon Contes
 * https://www.reddit.com/r/FantasyMaps/comments/l3g2os/secret_city_settlement_map/
 * Rudok's Tavern | Main Hall isometric map : https://i.redd.it/0wbqhfakpfl61.jpg
 * https://i.redd.it/ugtywg3wejs61.jpg -> explo post-apo ?
+* illustrations de Dupin & Duclot
 -->
 
 # Installation
